@@ -3,7 +3,8 @@ Projet Vol au Vent
 user de base pour mysql : vol
 mdp de base pour mysql : vent
 
-Pour que la tâche deploy fonctionne, il faut créer le fichier localconfig.xml à la racine du projet.
+Note pour plus tard : 
+Pour que la tâche deploy fonctionne -pour le moment il n'y a rien a déployer de toute façon hein- , il faut créer le fichier localconfig.xml à la racine du projet.
 Exemple de localconfig.xml :
 
 <?xml version="1.0" encoding="UTF-8"?>
@@ -12,3 +13,5 @@ Exemple de localconfig.xml :
 </project>
 
 N'ajoutez pas le localconfig.xml au répertoire git...
+
+
