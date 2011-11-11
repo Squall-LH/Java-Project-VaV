@@ -3,7 +3,6 @@ package com.VaV.model;
 public class User {
 
 	protected int id;
-	protected int id_reservation;
 	protected String last_name;
 	protected String first_name;
 	protected String login;
@@ -20,14 +19,6 @@ public class User {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public int getId_reservation() {
-		return id_reservation;
-	}
-
-	public void setId_reservation(int id_reservation) {
-		this.id_reservation = id_reservation;
 	}
 
 	public String getLast_name() {
