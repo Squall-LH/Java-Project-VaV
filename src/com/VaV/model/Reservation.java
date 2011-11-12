@@ -1,54 +1,60 @@
 package com.VaV.model;
+import java.util.Calendar;
 
+import javax.persistence.*;
+
+@Entity
 public class Reservation {
 
-	protected int id;
-	protected int id_flight_outbound;
-	protected int id_flight_return;
-	protected int id_user;
-	protected String date;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private long id;
+	
+	@ManyToOne
+	private Flight flight_outbound;
+	
+	@ManyToOne
+	private Flight flight_return; 
+	
+	@ManyToOne
+	private User user;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar date;
 
 	public Reservation() {
-
+			
 	}
 
-	public int getId() {
-		return id;
+	public Flight getFlight_outbound() {
+		return flight_outbound;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setFlight_outbound(Flight flight_outbound) {
+		this.flight_outbound = flight_outbound;
 	}
 
-	public int getId_flight_outbound() {
-		return id_flight_outbound;
+	public Flight getFlight_return() {
+		return flight_return;
 	}
 
-	public void setId_flight_outbound(int id_flight_outbound) {
-		this.id_flight_outbound = id_flight_outbound;
+	public void setFlight_return(Flight flight_return) {
+		this.flight_return = flight_return;
 	}
 
-	public int getId_flight_return() {
-		return id_flight_return;
+	public User getUser() {
+		return user;
 	}
 
-	public void setId_flight_return(int id_flight_return) {
-		this.id_flight_return = id_flight_return;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	public int getId_user() {
-		return id_user;
-	}
-
-	public void setId_user(int id_user) {
-		this.id_user = id_user;
-	}
-
-	public String getDate() {
+	public Calendar getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(Calendar date) {
 		this.date = date;
 	}
 }

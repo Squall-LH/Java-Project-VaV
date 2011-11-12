@@ -1,20 +1,19 @@
 package com.VaV.model;
 
+import javax.persistence.*;
+
+@Entity
 public class Airport {
 
-	protected int id;
-	protected String name;
+	@Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private long id;
+	
+	@Column(unique=true)
+	private String name;
 
 	public Airport() {
 
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getName() {

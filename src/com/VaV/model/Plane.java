@@ -1,21 +1,24 @@
 package com.VaV.model;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+@Entity
 public class Plane {
 
-	protected int id;
-	protected int seats;
-	protected String name;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private long id;
+	
+	private int seats;
+	
+	@Column(unique=true)
+	private String name;
 
 	public Plane() {
 
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public int getSeats() {

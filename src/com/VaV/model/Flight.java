@@ -1,54 +1,61 @@
 package com.VaV.model;
 
+import java.util.Calendar;
+
+import javax.persistence.*;
+
+@Entity
 public class Flight {
 
-	protected int id;
-	protected int id_airport_depart;
-	protected int id_airport_arrival;
-	protected int id_plane;
-	protected String date;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private long id;
+
+	@ManyToOne
+	private Airport airport_depart;
+
+	@ManyToOne
+	private Airport airport_arrival;
+
+	@ManyToOne
+	private Plane plane;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar date;
 
 	public Flight() {
 
 	}
 
-	public int getId() {
-		return id;
+	public Airport getAirport_depart() {
+		return airport_depart;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setAirport_depart(Airport airport_depart) {
+		this.airport_depart = airport_depart;
 	}
 
-	public int getId_airport_depart() {
-		return id_airport_depart;
+	public Airport getAirport_arrival() {
+		return airport_arrival;
 	}
 
-	public void setId_airport_depart(int id_airport_depart) {
-		this.id_airport_depart = id_airport_depart;
+	public void setAirport_arrival(Airport airport_arrival) {
+		this.airport_arrival = airport_arrival;
 	}
 
-	public int getId_airport_arrival() {
-		return id_airport_arrival;
+	public Plane getPlane() {
+		return plane;
 	}
 
-	public void setId_airport_arrival(int id_airport_arrival) {
-		this.id_airport_arrival = id_airport_arrival;
+	public void setPlane(Plane plane) {
+		this.plane = plane;
 	}
 
-	public int getId_plane() {
-		return id_plane;
-	}
-
-	public void setId_plane(int id_plane) {
-		this.id_plane = id_plane;
-	}
-
-	public String getDate() {
+	public Calendar getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(Calendar date) {
 		this.date = date;
 	}
 }
