@@ -6,10 +6,10 @@ import javax.persistence.*;
 public class Airport {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id;
-	
-	@Column(unique=true)
+
+	@Column(unique = true)
 	private String name;
 
 	public Airport() {
