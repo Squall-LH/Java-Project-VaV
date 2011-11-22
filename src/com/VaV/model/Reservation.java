@@ -5,7 +5,7 @@ import java.util.Calendar;
 import javax.persistence.*;
 
 @Entity
-public class Reservation implements java.io.Serializable {
+public class Reservation {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -25,6 +25,14 @@ public class Reservation implements java.io.Serializable {
 
 	public Reservation() {
 
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public Flight getFlight_outbound() {

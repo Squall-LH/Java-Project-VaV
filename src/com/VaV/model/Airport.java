@@ -3,7 +3,7 @@ package com.VaV.model;
 import javax.persistence.*;
 
 @Entity
-public class Airport implements java.io.Serializable {
+public class Airport {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -16,8 +16,12 @@ public class Airport implements java.io.Serializable {
 
 	}
 
-	public void clone(Airport a) {
-		this.name = a.name;
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public String getName() {

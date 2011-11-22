@@ -7,7 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Plane implements java.io.Serializable {
+public class Plane {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -20,6 +20,14 @@ public class Plane implements java.io.Serializable {
 
 	public Plane() {
 
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public int getSeats() {
