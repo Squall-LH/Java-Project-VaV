@@ -4,8 +4,8 @@ import com.VaV.model.Flight;
 
 public class FlightDAO extends DAO<Flight> {
 
-	public FlightDAO(Flight obj) {
-		super(obj);
+	public FlightDAO() {
+		
 	}
 
 }

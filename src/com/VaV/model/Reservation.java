@@ -1,29 +1,30 @@
 package com.VaV.model;
+
 import java.util.Calendar;
 
 import javax.persistence.*;
 
 @Entity
-public class Reservation {
+public class Reservation implements java.io.Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id;
-	
+
 	@ManyToOne
 	private Flight flight_outbound;
-	
+
 	@ManyToOne
-	private Flight flight_return; 
-	
+	private Flight flight_return;
+
 	@ManyToOne
 	private User user;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar date;
 
 	public Reservation() {
-			
+
 	}
 
 	public Flight getFlight_outbound() {

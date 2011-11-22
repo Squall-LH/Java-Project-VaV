@@ -1,11 +1,10 @@
 package com.VaV.model;
 
 import java.util.Calendar;
-
 import javax.persistence.*;
 
 @Entity
-public class Flight {
+public class Flight implements java.io.Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
