@@ -20,6 +20,8 @@ public class User {
 
 	private int flights;
 
+	private int level;
+
 	public User() {
 
 	}
@@ -70,5 +72,13 @@ public class User {
 
 	public void setFlights(int flights) {
 		this.flights = flights;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
 	}
 }
