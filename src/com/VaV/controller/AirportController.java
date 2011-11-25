@@ -11,6 +11,7 @@ import com.VaV.persistence.AirportDAO;
 
 import javax.persistence.*;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -51,45 +52,20 @@ public class AirportController extends HttpServlet {
 		RequestDispatcher disp;
 		HttpSession session = request.getSession();
 
+		/*
 		Airport airport = new Airport();
 		AirportDAO aDAO = new AirportDAO();
 		airport.setName("Paris");
 		airport = aDAO.find(airport);
 		airport.setName("Parisss");
 		aDAO.update();
+		*/ 
 		
-		/*
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("vav");
-		EntityManager em = factory.createEntityManager();
-		em.getTransaction().begin();
-		airport = em.find(Airport.class, (long)15);
-		airport.setName("Parisss");
-		em.getTransaction().commit();
-		em.close();
-		*/
-		
-		//airport = aDAO.findById((long)1);
-		/*airport.setName("Paris");
-		airportBefore.setName("Paris");
-		airportAfter.setName("Parisss");
-		//aDAO.create(airport);
-		aDAO.update(airport);
-		//airport = aDAO.find(airport);
-		//aDAO.delete(airport);
-			*/	
-		// Read the existing entries and write to console
-		/*
-		Query q = em.createQuery("select a from Airport a");
-		List<Airport> arList = q.getResultList();
-		for (Airport a : arList) {
-			System.out.println(a);
-		}
-		System.out.println("Size: " + arList.size());
+		//ServletContext sc = request.getServletContext();
+		//Integer user_level = (Integer) sc.getAttribute("user_level");
 
-		em.close();
-		*/
 		
-		session.setAttribute("airport", airport);
+		//session.setAttribute("airport", airport);
 		disp = request.getRequestDispatcher("index.jsp");
 		disp.forward(request, response);
 	}

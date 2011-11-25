@@ -3,7 +3,7 @@
     pageEncoding="UTF-8"
     import="com.VaV.model.Airport"
     %>
-<jsp:include page="header.html" />
+<jsp:include page="header.jsp" />
 
 <section>
 <h2>Réserver votre voyage</h2>
