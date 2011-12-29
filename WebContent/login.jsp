@@ -18,9 +18,4 @@
 </form>
 </section>
 
-<!--  
-<jsp:useBean id="airport" class="com.VaV.model.Airport" scope="session"/>
-<% //out.println(airport.getName()); %>
--->
-
 <%@ include file="footer.html"%>

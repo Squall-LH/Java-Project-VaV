@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -115,6 +116,19 @@ public class AirportController extends HttpServlet {
 			c.set(2006, Calendar.JANUARY, 5, 9, 30);
 			f.set(airport2, airport1, plane3, c);
 			fDAO.create(f);
+			
+			AirportDAO aDAO = new AirportDAO();
+			
+			ArrayList<Airport> lA = new ArrayList<Airport>(aDAO.retrieveAll());
+			
+			ArrayList<String> lAS = new ArrayList<String>();
+			System.out.println("******************************" + lA.size());
+			for(Airport a : lA) {
+				lAS.add(a.getName());
+				System.out.println("Airport : " + a.getName() );
+			}
+			
+			request.getServletContext().setAttribute("airport_list", lAS);
 		}
 		else if(action.equals("login")) {
 			String login = request.getParameter("id");

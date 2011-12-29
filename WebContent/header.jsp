@@ -11,22 +11,12 @@
 </head>
 <body>
 <jsp:useBean id="user" class="com.VaV.model.User" scope="session"/>
+<%@ page import="java.util.ArrayList" %>
 <header>
 <h1>Vol au Vent</h1>
 <nav>
 <ul><li><a href="index.jsp">Accueil</a></li>
-<% /*Integer user_level = new Integer((Integer)application.getAttribute("user_level"));
-	
-	if(user_level.compareTo(new Integer(0)) ==  0) {
-		out.print("<li><a href=\"login.jsp\">S'identifier</a></li></ul>");
-	}
-	else {
-		out.print("<li><a href=\"user?action=logout\">Se déconnecter</a></li></ul>");
-	}
-	if(user_level.compareTo(new Integer(0)) ==  2) {
-		out.print("<li><a href=\"user?action=admin\">Administration</a></li></ul>");
-	}*/
-	
+<% 
 	if(user.getLevel() != com.VaV.model.User.VISITOR) {
 		out.print("<li><a href=\"user?action=logout\">Se déconnecter</a></li></ul>");
 		
@@ -37,6 +27,13 @@
 	else {
 		out.print("<li><a href=\"login.jsp\">S'identifier</a></li></ul>");
 	}
+
+	out.println("<p>");
+	if(user.getLevel() != com.VaV.model.User.VISITOR) {
+		out.println("Bienvenu " + user.getFirst_name() + user.getLast_name());
+	}
+%>
+</p>
 %>
 </nav>
 </header>

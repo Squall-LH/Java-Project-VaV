@@ -1,17 +1,27 @@
 package com.VaV.persistence;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
+import org.eclipse.persistence.expressions.ExpressionBuilder;
 import org.eclipse.persistence.jpa.JpaEntityManager;
+import org.eclipse.persistence.queries.ReadAllQuery;
 import org.eclipse.persistence.queries.ReadObjectQuery;
+
+import com.VaV.model.Airport;
 
 public abstract class DAO<T> {
 
-	private EntityManagerFactory factory;
-	private EntityManager em;
+	protected EntityManagerFactory factory;
+	protected EntityManager em;
 	
 	public DAO() {
 		factory = Persistence.createEntityManagerFactory("vav");
@@ -52,4 +62,5 @@ public abstract class DAO<T> {
 		
 		return result;
 	}
+	
 }

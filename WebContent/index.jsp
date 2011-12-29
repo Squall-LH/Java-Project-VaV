@@ -3,14 +3,30 @@
 <section>
 <h2>Réserver votre voyage</h2>
 
-<form method="post" action="reservation?action=reserve">
+<form method="post" action="user?action=seek">
    <p>
        <label for="depart">De :</label>
-       <input type="text" name="depart" id="depart" autofocus required />
+       <select name="depart" id="depart">
+       <% 
+       		ArrayList<String> a = (ArrayList<String>) application.getAttribute("airport_list");
+       		for(String s : a) {
+       			out.println("<option value=\"" + s + "\">" + s + "</option>");
+       		}
+       %>
+       </select>
        
        <br />
        <label for="arrival">À :</label>
-       <input type="text" name="arrival" id="arrival" required />
+       <select name="arrival" id="arrival">
+       <% 
+       		for(int i = 0; i < a.size(); i++) {
+       			if(i != 1)
+       				out.println("<option value=\"" + a.get(i) + "\">" + a.get(i) + "</option>");
+       			else
+       				out.println("<option value=\"" + a.get(i) + "\" selected>" + a.get(i) + "</option>");
+       		}
+       %>
+       </select>
        
        <br />
        <label for="date_depart">Date aller :</label>
@@ -25,23 +41,5 @@
    </p>
 </form>
 </section>
-
-<!--  
-<jsp:useBean id="airport" class="com.VaV.model.Airport" scope="session"/>
-<% //out.println(airport.getName()); %>
--->
-
-<p>
-<%  
-/*
-if(session.getAttribute("login") != null) out.println(session.getAttribute("login"));
-if(session.getAttribute("pass") != null) out.println(session.getAttribute("pass"));
-*/
-
-if(user.getLevel() != com.VaV.model.User.VISITOR) {
-	out.println(user.getFirst_name());
-}
-%>
-</p>
 
 <%@ include file="footer.html"%>
