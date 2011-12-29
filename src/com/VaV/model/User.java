@@ -21,9 +21,31 @@ public class User {
 	private int flights;
 
 	private int level;
+	
+	public final static int VISITOR = 0;
+	public final static int USER = 1;
+	public final static int ADMIN = 2;
 
 	public User() {
-
+		level = VISITOR;
+	}
+	
+	public User(String last_name, String first_name, String login, String pass, int flights, int level) {
+		this.last_name = last_name;
+		this.first_name = first_name;
+		this.login = login;
+		this.pass = pass;
+		this.flights = flights;
+		this.level = level;
+	}
+	
+	public void set(String last_name, String first_name, String login, String pass, int flights, int level) {
+		this.last_name = last_name;
+		this.first_name = first_name;
+		this.login = login;
+		this.pass = pass;
+		this.flights = flights;
+		this.level = level;
 	}
 
 	public long getId() {

@@ -25,6 +25,13 @@ public class Flight {
 	public Flight() {
 
 	}
+	
+	public void set(Airport airport_depart, Airport airport_arrival, Plane plane, Calendar date) {
+		this.airport_depart = airport_depart;
+		this.airport_arrival = airport_arrival;
+		this.plane = plane;
+		this.date = date;
+	}
 
 	public long getId() {
 		return id;

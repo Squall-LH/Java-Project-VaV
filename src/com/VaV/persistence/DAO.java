@@ -15,31 +15,41 @@ public abstract class DAO<T> {
 	
 	public DAO() {
 		factory = Persistence.createEntityManagerFactory("vav");
-		em = factory.createEntityManager();
-		em.getTransaction().begin();
 	}
 
 	public void create(T obj) {
+		em = factory.createEntityManager();
+		em.getTransaction().begin();
 		em.persist(obj);
 		em.getTransaction().commit();
+		em.close();
 	}
 
 	public void delete(T obj) {
+		em = factory.createEntityManager();
+		em.getTransaction().begin();
 		obj = find(obj);
 		obj = em.merge(obj);
 		em.remove(obj);
 		em.getTransaction().commit();
+		em.close();
 	}
 
 	public void update() {	
+		em = factory.createEntityManager();
+		em.getTransaction().begin();
 		em.getTransaction().commit();
+		em.close();
 	}
 
 	public T find(T obj) {
+		em = factory.createEntityManager();
+		em.getTransaction().begin();
 		ReadObjectQuery query = new ReadObjectQuery();
 		query.setExampleObject(obj);
 		JpaEntityManager jpa = (JpaEntityManager) em.getDelegate();
 		T result = (T) jpa.getServerSession().acquireClientSession().executeQuery(query);
-		return em.merge(result);
+		
+		return result;
 	}
 }

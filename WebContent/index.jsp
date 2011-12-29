@@ -1,12 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"
-    import="com.VaV.model.Airport"
-    %>
-<jsp:include page="header.jsp" />
+<%@ include file="header.jsp"%>
 
 <section>
-<h2>RÃ©server votre voyage</h2>
+<h2>Réserver votre voyage</h2>
 
 <form method="post" action="reservation?action=reserve">
    <p>
@@ -14,7 +9,7 @@
        <input type="text" name="depart" id="depart" autofocus required />
        
        <br />
-       <label for="arrival">Ã€ :</label>
+       <label for="arrival">À :</label>
        <input type="text" name="arrival" id="arrival" required />
        
        <br />
@@ -36,4 +31,17 @@
 <% //out.println(airport.getName()); %>
 -->
 
-<jsp:include page="footer.html" />
+<p>
+<%  
+/*
+if(session.getAttribute("login") != null) out.println(session.getAttribute("login"));
+if(session.getAttribute("pass") != null) out.println(session.getAttribute("pass"));
+*/
+
+if(user.getLevel() != com.VaV.model.User.VISITOR) {
+	out.println(user.getFirst_name());
+}
+%>
+</p>
+
+<%@ include file="footer.html"%>

@@ -1,14 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"
-    import="com.VaV.model.Airport"
-    %>
-<jsp:include page="header.jsp" />
+<%@ include file="header.jsp"%>
 
 <section>
-<h2>Réserver votre voyage</h2>
+<h2>Vous identifier</h2>
 
-<form method="post" action="reservation?action=reserve">
+<form method="post" action="user?action=login">
    <p>       
  	   <label for="id">Votre identifiant :</label>
        <input type="text" name="id" id="id" autofocus required />
@@ -16,6 +11,9 @@
        <br />
        <label for="pass">Votre mot de passe :</label>
        <input type="password" name="pass" id="pass" required />
+       
+       <br />
+       <input type="submit" value="Envoyer" />
    </p>
 </form>
 </section>
@@ -25,4 +23,4 @@
 <% //out.println(airport.getName()); %>
 -->
 
-<jsp:include page="footer.html" />
+<%@ include file="footer.html"%>

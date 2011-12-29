@@ -1,3 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"
+    import="com.VaV.model.Airport"
+    %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -5,20 +10,32 @@
 <title>Vol au Vent</title>
 </head>
 <body>
+<jsp:useBean id="user" class="com.VaV.model.User" scope="session"/>
 <header>
 <h1>Vol au Vent</h1>
 <nav>
 <ul><li><a href="index.jsp">Accueil</a></li>
-<% Integer user_level = new Integer((Integer)application.getAttribute("user_level"));
+<% /*Integer user_level = new Integer((Integer)application.getAttribute("user_level"));
 	
 	if(user_level.compareTo(new Integer(0)) ==  0) {
-		out.print("<li><a href=\"user.jsp?action=login\">S'identifier</a></li></ul>");
+		out.print("<li><a href=\"login.jsp\">S'identifier</a></li></ul>");
 	}
 	else {
-		out.print("<li><a href=\"user.jsp?action=logout\">Se d�connecter</a></li></ul>");
+		out.print("<li><a href=\"user?action=logout\">Se déconnecter</a></li></ul>");
 	}
 	if(user_level.compareTo(new Integer(0)) ==  2) {
-		out.print("<li><a href=\"user.jsp?action=admin\">Administration</a></li></ul>");
+		out.print("<li><a href=\"user?action=admin\">Administration</a></li></ul>");
+	}*/
+	
+	if(user.getLevel() != com.VaV.model.User.VISITOR) {
+		out.print("<li><a href=\"user?action=logout\">Se déconnecter</a></li></ul>");
+		
+		if(user.getLevel() == com.VaV.model.User.ADMIN) {
+			out.print("<li><a href=\"user?action=admin\">Administration</a></li></ul>");
+		}
+	}
+	else {
+		out.print("<li><a href=\"login.jsp\">S'identifier</a></li></ul>");
 	}
 %>
 </nav>
