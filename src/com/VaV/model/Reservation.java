@@ -26,6 +26,13 @@ public class Reservation {
 	public Reservation() {
 
 	}
+	
+	public void set(Flight flight_outbound, Flight flight_return, User user, Calendar date) {
+		this.flight_outbound = flight_outbound;
+		this.flight_return = flight_return;
+		this.user = user;
+		this.date = date;
+	}
 
 	public long getId() {
 		return id;

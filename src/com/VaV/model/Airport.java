@@ -15,6 +15,10 @@ public class Airport {
 	public Airport() {
 
 	}
+	
+	public Airport(String name) {
+		this.name = name;
+	}
 
 	public long getId() {
 		return id;

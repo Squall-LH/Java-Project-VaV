@@ -30,7 +30,7 @@
 
 	out.println("<p>");
 	if(user.getLevel() != com.VaV.model.User.VISITOR) {
-		out.println("Bienvenu " + user.getFirst_name() + user.getLast_name());
+		out.println("Bienvenu " + user.getFirst_name() + " " + user.getLast_name());
 	}
 %>
 </p>

@@ -4,8 +4,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -156,6 +159,47 @@ public class AirportController extends HttpServlet {
 		}
 		else if(action.equals("logout")) {
 			session.invalidate();
+		}
+		else if(action.equals("reserve")) {
+			Airport airport_depart = new Airport(request.getParameter("depart"));
+			Airport airport_arrival = new Airport(request.getParameter("arrival"));
+			AirportDAO aDAO = new AirportDAO();
+			FlightDAO fDAO = new FlightDAO();
+			Flight f = new Flight();
+			
+			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy");
+		    Date date_depart;
+		    Date date_arrival;
+		    Calendar calendar_depart = Calendar.getInstance();
+		    Calendar calendar_arrival = Calendar.getInstance();
+			try {
+				date_depart = format.parse(request.getParameter("date_depart"));
+				date_arrival = format.parse(request.getParameter("date_arrival"));
+				calendar_depart.setTime(date_depart);
+				calendar_arrival.setTime(date_arrival);
+				calendar_depart.set(Calendar.HOUR, 0);
+				calendar_depart.set(Calendar.MINUTE, 0);
+				System.out.println(calendar_depart.toString());
+				
+				f.set(airport_depart, airport_arrival, null, calendar_depart);
+				
+				ArrayList<Flight> fl;
+				fl = fDAO.retrieveFlight(f);
+				
+				if(f == null)
+					System.out.println("********************* No result");
+				else {
+					for(Flight current : fl) {
+						System.out.println("********************************" + current.getPlane().getName());
+					}
+				}
+				
+				
+				
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		    
 		}
 
 		/*
