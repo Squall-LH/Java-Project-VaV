@@ -163,7 +163,6 @@ public class AirportController extends HttpServlet {
 		else if(action.equals("seek")) {
 			Airport airport_depart = new Airport(request.getParameter("depart"));
 			Airport airport_arrival = new Airport(request.getParameter("arrival"));
-			AirportDAO aDAO = new AirportDAO();
 			FlightDAO fDAO = new FlightDAO();
 			Flight f_depart = new Flight();
 			Flight f_arrival = new Flight();
@@ -172,17 +171,10 @@ public class AirportController extends HttpServlet {
 			SimpleDateFormat format_heure = new SimpleDateFormat("dd/MM/yy H:m");
 		    Date date_depart;
 		    Date date_arrival;
-		    Calendar calendar_depart = Calendar.getInstance();
-		    Calendar calendar_arrival = Calendar.getInstance();
+
 			try {
 				date_depart = format.parse(request.getParameter("date_depart"));
 				date_arrival = format.parse(request.getParameter("date_arrival"));
-				calendar_depart.setTime(date_depart);
-				calendar_arrival.setTime(date_arrival);
-				calendar_depart.set(Calendar.HOUR, 0);
-				calendar_depart.set(Calendar.MINUTE, 0);
-				System.out.println(format.format(date_depart));
-				System.out.println(format.format(date_arrival));
 				
 				f_depart.set(airport_depart, airport_arrival, null, date_depart);
 				f_arrival.set(airport_arrival, airport_depart, null, date_arrival);
@@ -194,8 +186,8 @@ public class AirportController extends HttpServlet {
 				
 				if(lf_depart.size() == 0 || lf_arrival.size() == 0) {
 					System.out.println("********************* No result");
-					String message = new String("Aucun vol correspondant à ces critères");
-					session.setAttribute("message", message);
+					String notice = new String("Aucun vol correspondant à ces critères");
+					session.setAttribute("notice", notice);
 				}
 				else {
 					ArrayList<String> flight_depart = new ArrayList<String>();
@@ -239,11 +231,20 @@ public class AirportController extends HttpServlet {
 			depart = fDAO.find(depart);
 			arrival = fDAO.find(arrival);
 			
-			r.set(depart, arrival, u, date);
-			rDAO.create(r);
-			
-			String message = new String("Réservation effectiée");
-			session.setAttribute("message", message);
+			/* On vérifie qu'il n'y a pas de chevauchement de date de vol */
+			ArrayList<Reservation> results = new ArrayList<Reservation>();
+			results = rDAO.retriveInsider(depart.getDate(), arrival.getDate(), u);
+			if(results.size() > 0) {
+				String notice = new String("Réservation impossible du fait de chevauchement avec des réservations précédentes");
+				session.setAttribute("notice", notice);
+			}
+			else {
+				r.set(depart, arrival, u, date);
+				rDAO.create(r);
+				
+				String notice = new String("Réservation effectiée");
+				session.setAttribute("notice", notice);
+			}
 		}
 		
 		if(disp == null )

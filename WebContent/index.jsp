@@ -6,8 +6,8 @@
 <form method="post" action="user?action=seek">
    <p>
    		<% 
-   		out.println(session.getAttribute("message") + "<br />");
-   		session.setAttribute("message", "");
+   		out.println(session.getAttribute("notice") + "<br />");
+   		session.setAttribute("notice", "");
    		%>
    
        <label for="depart">De :</label>
