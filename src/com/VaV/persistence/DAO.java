@@ -1,5 +1,6 @@
 package com.VaV.persistence;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -15,6 +16,7 @@ import org.eclipse.persistence.expressions.ExpressionBuilder;
 import org.eclipse.persistence.jpa.JpaEntityManager;
 import org.eclipse.persistence.queries.ReadAllQuery;
 import org.eclipse.persistence.queries.ReadObjectQuery;
+import org.eclipse.persistence.queries.SQLCall;
 
 import com.VaV.model.Airport;
 
@@ -62,5 +64,22 @@ public abstract class DAO<T> {
 		
 		return result;
 	}
+	
+	public List<T> retrieve(T obj) {
+		em = factory.createEntityManager();
+		em.getTransaction().begin();
+		ReadAllQuery query = new ReadAllQuery();
+		query.setExampleObject(obj);
+		JpaEntityManager jpa = (JpaEntityManager) em.getDelegate();
+		List<T> result = (List<T>) jpa.getServerSession().acquireClientSession().executeQuery(query);
+		
+		return result;
+	}
+	
+	public void erase_database() {
+		JpaEntityManager jpa = (JpaEntityManager) em.getDelegate();
+		jpa.getServerSession().acquireClientSession().executeNonSelectingCall(new SQLCall("SELECT * FROM EMPLOYEE WHERE DEPT_ID =44"));
+	}
+	
 	
 }

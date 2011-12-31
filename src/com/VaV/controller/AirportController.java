@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.io.IOException;
+
+import com.VaV.execute.Fill;
 import com.VaV.model.*;
 import com.VaV.persistence.*;
 
@@ -66,59 +68,9 @@ public class AirportController extends HttpServlet {
 		if(action == null) {
 			
 		}
-		else if(action.equals("init")) {
-			
-			User user = new User("More", "John", "john", "more", 0, User.USER);
-			
-			UserDAO userDAO = new UserDAO();
-			userDAO.create(user);
-			user.set("Plus", "Jean", "jean", "plus", 0, User.USER);
-			userDAO.create(user);
-			user.set("Nom d'user", "Prénom d'user", "user", "user", 0, User.USER);
-			userDAO.create(user);
-			user.set("Nom d'admin", "Prénom d'admin", "admin", "admin", 0, User.ADMIN);
-			userDAO.create(user);
-			
-			AirportDAO airportDAO = new AirportDAO();
-			Airport airport1 = new Airport();
-			Airport airport2 = new Airport();
-			
-			airport1.setName("Paris Charles de Gaulle (CDG)");
-			airportDAO.create(airport1);
-			airport2.setName("Newark Liberty International (EWR)");
-			airportDAO.create(airport2);
-			
-			PlaneDAO planeDAO = new PlaneDAO();
-			Plane plane1 = new Plane();
-			Plane plane2 = new Plane();
-			Plane plane3 = new Plane();
-			
-			plane1.setName("Avion 1");
-			plane1.setSeats(10);
-			planeDAO.create(plane1);
-			
-			plane2.setName("Avion 2");
-			plane2.setSeats(20);
-			planeDAO.create(plane2);
-			
-			plane3.setName("Avion 3");
-			plane3.setSeats(30);
-			planeDAO.create(plane3);
-			
-			Flight f = new Flight();
-			FlightDAO fDAO = new FlightDAO();
-			
-			Calendar c = Calendar.getInstance(TimeZone.getTimeZone("CEST"), Locale.FRANCE);
-			
-			c.set(2005, Calendar.DECEMBER, 25, 10, 5);
-			f.set(airport1, airport2, plane1, c.getTime());
-			fDAO.create(f);
-			c.set(2005, Calendar.DECEMBER, 30, 20, 30);
-			f.set(airport1, airport2, plane2, c.getTime());
-			fDAO.create(f);
-			c.set(2006, Calendar.JANUARY, 5, 9, 30);
-			f.set(airport2, airport1, plane3, c.getTime());
-			fDAO.create(f);
+		else if(action.equals("fill_database")) {
+			Fill f = new Fill();
+			f.fill_database();
 			
 			AirportDAO aDAO = new AirportDAO();
 			
@@ -150,12 +102,12 @@ public class AirportController extends HttpServlet {
 			user2 = userDAO.find(user);
 			if(user2 == null) {
 				System.out.println("log - pass invalide");
+				String notice = new String("Réservation impossible du fait de chevauchement avec des réservations précédentes");
+				session.setAttribute("notice", notice);
 			}
 			else {
 				session.setAttribute("user", user2);
 			}
-				
-			session.setAttribute("user", user2);
 		}
 		else if(action.equals("logout")) {
 			session.invalidate();
@@ -225,16 +177,17 @@ public class AirportController extends HttpServlet {
 			
 			depart.setId(Integer.parseInt(request.getParameter("depart")));
 			arrival.setId(Integer.parseInt(request.getParameter("arrival")));
-
+			
+			/* On récupère la date d'aujourd'hui */
 			Date date = Calendar.getInstance().getTime();
 			
 			depart = fDAO.find(depart);
 			arrival = fDAO.find(arrival);
 			
-			/* On vérifie qu'il n'y a pas de chevauchement de date de vol */
+			/* On vérifie qu'il n'y a pas de chevauchement de date de vol -Fonctionne à priori, mais à tester d'avantage- */
 			ArrayList<Reservation> results = new ArrayList<Reservation>();
 			results = rDAO.retriveInsider(depart.getDate(), arrival.getDate(), u);
-			if(results.size() > 0) {
+			if(results == null || results.size() > 0) {
 				String notice = new String("Réservation impossible du fait de chevauchement avec des réservations précédentes");
 				session.setAttribute("notice", notice);
 			}
@@ -245,6 +198,44 @@ public class AirportController extends HttpServlet {
 				String notice = new String("Réservation effectiée");
 				session.setAttribute("notice", notice);
 			}
+		} else if(action.equals("list_reservation")) {
+			UserDAO uDAO = new UserDAO();
+			User u = new User((User)session.getAttribute("user"));
+			u = uDAO.find(u);
+			ReservationDAO rDAO = new ReservationDAO();
+			Reservation r = new Reservation();
+			
+			r.setUser(u);
+			ArrayList<Reservation> lR = new ArrayList<Reservation>(rDAO.retrieve(r));
+			ArrayList<String> lRS_before = new ArrayList<String>();
+			ArrayList<String> lRS_after = new ArrayList<String>();
+			ArrayList<String> lRS_after_id = new ArrayList<String>();
+			
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd H:m:s");
+			Date now = Calendar.getInstance().getTime();
+			for(Reservation current : lR) {
+				String tmp = new String("Vol aller-retour de " + current.getFlight_outbound().getAirport_depart().getName() + 
+						" à " + current.getFlight_outbound().getAirport_arrival().getName() +
+						".\n Date Aller : " + format.format(current.getFlight_outbound().getDate()) + "\n Date Retour : " 
+						+ format.format(current.getFlight_return().getDate())
+						);
+				/* On compare la date du vol de retour à la date d'aujourd'hui pour savoir s'il est encore possible d'annuler au moins le vol de retour ou pas */
+				if(now.after(current.getFlight_return().getDate()) ) {
+					lRS_before.add(tmp);
+				}
+				else {
+					lRS_after_id.add(String.valueOf(current.getId()));
+					lRS_after.add(tmp);
+				}
+				
+				
+				System.out.println(current.getId());
+			}
+			
+			session.setAttribute("lRS_before", lRS_before);
+			session.setAttribute("lRS_after", lRS_after);
+			session.setAttribute("lRS_after_id", lRS_after_id);
+			disp = request.getRequestDispatcher("list_reservation.jsp");
 		}
 		
 		if(disp == null )

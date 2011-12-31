@@ -19,9 +19,10 @@
 <% 
 	if(user.getLevel() != com.VaV.model.User.VISITOR) {
 		out.print("<li><a href=\"user?action=logout\">Se déconnecter</a></li></ul>");
+		out.print("<li><a href=\"user?action=list_reservation\">Liste des réservations</a></li></ul>");
 		
 		if(user.getLevel() == com.VaV.model.User.ADMIN) {
-			out.print("<li><a href=\"user?action=admin\">Administration</a></li></ul>");
+			out.print("<li><a href=\"user?action=fill_database\">Remplir la BDD</a></li></ul>");
 		}
 	}
 	else {

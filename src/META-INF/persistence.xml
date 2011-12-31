@@ -49,7 +49,7 @@
             <!-- property name="eclipselink.ddl-generation" value="create-tables" / -->
             <!-- To drop and replace existing schema this can be used. -->
             <!-- <property name="eclipselink.ddl-generation" value="drop-and-create-tables" /> -->
-            <property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
+            <property name="eclipselink.ddl-generation" value="create-tables" />
 
             <!-- Configure simple SQL logging for demonstration. -->
             <property name="eclipselink.logging.level" value="FINE" />

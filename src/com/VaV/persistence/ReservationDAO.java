@@ -24,7 +24,7 @@ public class ReservationDAO extends DAO<Reservation> {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd H:m:s");
 		
 		String query = new String("select r.id from RESERVATION r join FLIGHT f1 on r.FLIGHT_OUTBOUND_ID=f1.id join FLIGHT f2 on r.FLIGHT_RETURN_ID = f2.id where '"
-				+ format.format(d1) + "' between f1.date and f2.date AND '" + format.format(d2) + "' between f1.date and f2.date;");
+				+ format.format(d1) + "' between f1.date and f2.date AND '" + format.format(d2) + "' between f1.date and f2.date AND r.user_id = " + u.getId());
 		
 		Connection cnx=null;
 	    Reservation r = new Reservation();
