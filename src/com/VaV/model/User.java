@@ -39,6 +39,15 @@ public class User {
 		this.level = level;
 	}
 	
+	public User(User u) {
+		this.last_name = u.last_name;
+		this.first_name = u.first_name;
+		this.login = u.login;
+		this.pass = u.pass;
+		this.flights = u.flights;
+		this.level = u.level;
+	}
+
 	public void set(String last_name, String first_name, String login, String pass, int flights, int level) {
 		this.last_name = last_name;
 		this.first_name = first_name;

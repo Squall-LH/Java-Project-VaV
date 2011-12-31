@@ -194,8 +194,8 @@ public class AirportController extends HttpServlet {
 				
 				if(lf_depart.size() == 0 || lf_arrival.size() == 0) {
 					System.out.println("********************* No result");
-					String error = new String("Aucun vol correspondant à ces critères");
-					session.setAttribute("error", error);
+					String message = new String("Aucun vol correspondant à ces critères");
+					session.setAttribute("message", message);
 				}
 				else {
 					ArrayList<String> flight_depart = new ArrayList<String>();
@@ -212,6 +212,8 @@ public class AirportController extends HttpServlet {
 					
 					session.setAttribute("flight_depart", flight_depart);
 					session.setAttribute("flight_arrival", flight_arrival);
+					session.setAttribute("lf_depart", lf_depart);
+					session.setAttribute("lf_arrival", lf_arrival);
 					
 					disp = request.getRequestDispatcher("list_flight.jsp");
 				}
@@ -219,7 +221,29 @@ public class AirportController extends HttpServlet {
 				e.printStackTrace();
 			}
 		} else if(action.equals("reserve")) {
+			UserDAO uDAO = new UserDAO();
+			User u = new User((User)session.getAttribute("user"));
+			u = uDAO.find(u);
 			
+			Flight depart = new Flight();
+			Flight arrival = new Flight();
+			FlightDAO fDAO = new FlightDAO();
+			ReservationDAO rDAO = new ReservationDAO();
+			Reservation r = new Reservation();
+			
+			depart.setId(Integer.parseInt(request.getParameter("depart")));
+			arrival.setId(Integer.parseInt(request.getParameter("arrival")));
+
+			Date date = Calendar.getInstance().getTime();
+			
+			depart = fDAO.find(depart);
+			arrival = fDAO.find(arrival);
+			
+			r.set(depart, arrival, u, date);
+			rDAO.create(r);
+			
+			String message = new String("Réservation effectiée");
+			session.setAttribute("message", message);
 		}
 		
 		if(disp == null )
