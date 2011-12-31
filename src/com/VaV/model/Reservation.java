@@ -1,6 +1,7 @@
 package com.VaV.model;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.persistence.*;
 
@@ -21,13 +22,13 @@ public class Reservation {
 	private User user;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	private Calendar date;
+	private Date date;
 
 	public Reservation() {
 
 	}
 	
-	public void set(Flight flight_outbound, Flight flight_return, User user, Calendar date) {
+	public void set(Flight flight_outbound, Flight flight_return, User user, Date date) {
 		this.flight_outbound = flight_outbound;
 		this.flight_return = flight_return;
 		this.user = user;
@@ -66,11 +67,11 @@ public class Reservation {
 		this.user = user;
 	}
 
-	public Calendar getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(Calendar date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 }

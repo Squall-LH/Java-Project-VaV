@@ -3,8 +3,13 @@
 <section>
 <h2>Réserver votre voyage</h2>
 
-<form method="post" action="user?action=reserve">
+<form method="post" action="user?action=seek">
    <p>
+   		<% 
+   		out.println(session.getAttribute("error") + "<br />");
+   		session.setAttribute("error", "");
+   		%>
+   
        <label for="depart">De :</label>
        <select name="depart" id="depart">
        <% 

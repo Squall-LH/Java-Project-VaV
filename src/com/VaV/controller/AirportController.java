@@ -58,7 +58,7 @@ public class AirportController extends HttpServlet {
 	 *      response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher disp;
+		RequestDispatcher disp = null;
 		HttpSession session = request.getSession();
 		
 		String action = request.getParameter("action");
@@ -111,13 +111,13 @@ public class AirportController extends HttpServlet {
 			Calendar c = Calendar.getInstance(TimeZone.getTimeZone("CEST"), Locale.FRANCE);
 			
 			c.set(2005, Calendar.DECEMBER, 25, 10, 5);
-			f.set(airport1, airport2, plane1, c);
+			f.set(airport1, airport2, plane1, c.getTime());
 			fDAO.create(f);
 			c.set(2005, Calendar.DECEMBER, 30, 20, 30);
-			f.set(airport1, airport2, plane2, c);
+			f.set(airport1, airport2, plane2, c.getTime());
 			fDAO.create(f);
 			c.set(2006, Calendar.JANUARY, 5, 9, 30);
-			f.set(airport2, airport1, plane3, c);
+			f.set(airport2, airport1, plane3, c.getTime());
 			fDAO.create(f);
 			
 			AirportDAO aDAO = new AirportDAO();
@@ -160,14 +160,16 @@ public class AirportController extends HttpServlet {
 		else if(action.equals("logout")) {
 			session.invalidate();
 		}
-		else if(action.equals("reserve")) {
+		else if(action.equals("seek")) {
 			Airport airport_depart = new Airport(request.getParameter("depart"));
 			Airport airport_arrival = new Airport(request.getParameter("arrival"));
 			AirportDAO aDAO = new AirportDAO();
 			FlightDAO fDAO = new FlightDAO();
-			Flight f = new Flight();
+			Flight f_depart = new Flight();
+			Flight f_arrival = new Flight();
 			
 			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy");
+			SimpleDateFormat format_heure = new SimpleDateFormat("dd/MM/yy H:m");
 		    Date date_depart;
 		    Date date_arrival;
 		    Calendar calendar_depart = Calendar.getInstance();
@@ -179,44 +181,49 @@ public class AirportController extends HttpServlet {
 				calendar_arrival.setTime(date_arrival);
 				calendar_depart.set(Calendar.HOUR, 0);
 				calendar_depart.set(Calendar.MINUTE, 0);
-				System.out.println(calendar_depart.toString());
+				System.out.println(format.format(date_depart));
+				System.out.println(format.format(date_arrival));
 				
-				f.set(airport_depart, airport_arrival, null, calendar_depart);
+				f_depart.set(airport_depart, airport_arrival, null, date_depart);
+				f_arrival.set(airport_arrival, airport_depart, null, date_arrival);
 				
-				ArrayList<Flight> fl;
-				fl = fDAO.retrieveFlight(f);
+				ArrayList<Flight> lf_depart;
+				ArrayList<Flight> lf_arrival;
+				lf_depart = fDAO.retrieveFlight(f_depart);
+				lf_arrival = fDAO.retrieveFlight(f_arrival);
 				
-				if(f == null)
+				if(lf_depart.size() == 0 || lf_arrival.size() == 0) {
 					System.out.println("********************* No result");
-				else {
-					for(Flight current : fl) {
-						System.out.println("********************************" + current.getPlane().getName());
-					}
+					String error = new String("Aucun vol correspondant à ces critères");
+					session.setAttribute("error", error);
 				}
-				
-				
-				
+				else {
+					ArrayList<String> flight_depart = new ArrayList<String>();
+					ArrayList<String> flight_arrival = new ArrayList<String>();
+					for(Flight current : lf_depart) {
+						String tmp = new String(format_heure.format(current.getDate()));
+						flight_depart.add(tmp);
+					}
+					
+					for(Flight current : lf_arrival) {
+						String tmp = new String(format_heure.format(current.getDate()));
+						flight_arrival.add(tmp);
+					}
+					
+					session.setAttribute("flight_depart", flight_depart);
+					session.setAttribute("flight_arrival", flight_arrival);
+					
+					disp = request.getRequestDispatcher("list_flight.jsp");
+				}
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-		    
+		} else if(action.equals("reserve")) {
+			
 		}
-
-		/*
-		Airport airport = new Airport();
-		AirportDAO aDAO = new AirportDAO();
-		airport.setName("Paris");
-		airport = aDAO.find(airport);
-		airport.setName("Parisss");
-		aDAO.update();
-		*/ 
 		
-		//ServletContext sc = request.getServletContext();
-		//Integer user_level = (Integer) sc.getAttribute("user_level");
-
-		
-		//session.setAttribute("airport", airport);
-		disp = request.getRequestDispatcher("index.jsp");
+		if(disp == null )
+			disp = request.getRequestDispatcher("index.jsp");
 		disp.forward(request, response);
 	}
 
