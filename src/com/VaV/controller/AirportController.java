@@ -239,7 +239,12 @@ public class AirportController extends HttpServlet {
 			disp = request.getRequestDispatcher("list_reservation.jsp");
 		} else if(action.equals("remove")) {
 			ReservationDAO rDAO = new ReservationDAO();
+			
+			/* Donne la listes des noms des paramètres passé en GET ou en POST. Toutes variables passées dont le nom est un nombre 
+			 * sera consédérer comme un id de réservation à supprimer. Dangereux au possible !
+			 * */
 			Enumeration<String> p = request.getParameterNames();
+			
 
 			while(p.hasMoreElements()) {
 				try {
@@ -254,7 +259,43 @@ public class AirportController extends HttpServlet {
 			String notice = new String("Réservations annulées");
 			session.setAttribute("notice", notice);
 			disp = request.getRequestDispatcher("list_reservation.jsp");
-		} 
+		} else if(action.equals("view_flight")) {
+			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy");
+			SimpleDateFormat format_2 = new SimpleDateFormat("yyyy-MM-dd H:m:s");
+			Date d1 = null;
+			Date d2 = null;
+			
+			try {
+				d1 = format.parse(request.getParameter("date1"));
+				d2 = format.parse(request.getParameter("date2"));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			
+			FlightDAO fDAO = new FlightDAO();
+			ArrayList<Flight> lF = new ArrayList<Flight>(fDAO.retrieveFlight(d1, d2));
+			ArrayList<Long> freeSeats = new ArrayList<Long>(fDAO.freeSeats(lF));
+			
+			if(lF.size() > 0) {
+				ArrayList<String> lFlightS = new ArrayList<String>();
+				
+				for(int i = 0; i < lF.size(); i++) {
+					String tmp = new String("Vol de " + lF.get(i).getAirport_depart().getName() + 
+							" à " + lF.get(i).getAirport_arrival().getName() +
+							".\n Date du Vol : " + format_2.format(lF.get(i).getDate()) + 
+							"\nNombre de place libres : " + freeSeats.get(i) 
+							);
+					lFlightS.add(tmp);
+				}
+
+				session.setAttribute("lFlightS", lFlightS);
+			} else {
+				String notice = new String("Il n'existe pas de vol entre ces dates");
+				session.setAttribute("notice", notice);
+			}
+			
+			disp = request.getRequestDispatcher("view_flight.jsp");
+		}
 		
 		if(disp == null )
 			disp = request.getRequestDispatcher("index.jsp");

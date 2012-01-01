@@ -23,6 +23,7 @@
 		
 		if(user.getLevel() == com.VaV.model.User.ADMIN) {
 			out.print("<li><a href=\"user?action=fill_database\">Remplir la BDD</a></li></ul>");
+			out.print("<li><a href=\"view_flight.jsp\">Voir la liste des vols</a></li></ul>");
 		}
 	}
 	else {

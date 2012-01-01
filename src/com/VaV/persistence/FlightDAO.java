@@ -19,6 +19,8 @@ import org.eclipse.persistence.queries.ReadObjectQuery;
 import org.eclipse.persistence.queries.SQLCall;
 
 import com.VaV.model.Flight;
+import com.VaV.model.Reservation;
+
 import java.sql.*;
 
 public class FlightDAO extends DAO<Flight> {
@@ -139,6 +141,42 @@ public class FlightDAO extends DAO<Flight> {
 		System.out.println("****************************"+ results);
 		*/
 		
+		return results;
+	}
+	
+	public List<Flight> retrieveFlight(Date d1, Date d2) {
+		em = factory.createEntityManager();
+		em.getTransaction().begin();
+		
+		ReadAllQuery query = new ReadAllQuery();
+		query.setExampleObject(new Flight());
+		ExpressionBuilder builder = new ExpressionBuilder();
+		
+		query.setSelectionCriteria(builder.get("date").between(d1,d2));
+	
+		JpaEntityManager jpa = (JpaEntityManager) em.getDelegate();
+		List<Flight> results = (List<Flight>) jpa.getServerSession().acquireClientSession().executeQuery(query);
+
+		return results;
+	}
+	
+	public ArrayList<Long> freeSeats(List<Flight> lF) {
+		em = factory.createEntityManager();
+		em.getTransaction().begin();
+		
+		ArrayList<Long> results = new ArrayList<Long>();
+		
+		for(Flight current : lF) {
+			Query query_nb = em.createQuery("SELECT COUNT(r) FROM Reservation r WHERE r.flight_outbound = ?1 OR r.flight_return = ?1");
+			Query query_seat = em.createQuery("select p.seats from Flight f JOIN f.plane p where f.id = ?1;");
+			query_nb.setParameter(1, current);
+			query_seat.setParameter(1, current.getId());
+			Long nb = (Long)query_nb.getSingleResult();
+			Integer seat = (Integer)query_seat.getSingleResult();
+			results.add(seat - nb);
+			System.out.println("ID du Vol : " + current.getId() + " | Nombre de Siège libre : " + (seat-nb));
+		}
+
 		return results;
 	}
 }
