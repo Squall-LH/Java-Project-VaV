@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -236,7 +237,24 @@ public class AirportController extends HttpServlet {
 			session.setAttribute("lRS_after", lRS_after);
 			session.setAttribute("lRS_after_id", lRS_after_id);
 			disp = request.getRequestDispatcher("list_reservation.jsp");
-		}
+		} else if(action.equals("remove")) {
+			ReservationDAO rDAO = new ReservationDAO();
+			Enumeration<String> p = request.getParameterNames();
+
+			while(p.hasMoreElements()) {
+				try {
+					Integer id = Integer.valueOf(p.nextElement());
+					Reservation r = new Reservation();
+					r.setId(id);
+					r = rDAO.find(r);
+					rDAO.delete(r);
+				} catch (Exception e) {}
+			}
+			
+			String notice = new String("Réservations annulées");
+			session.setAttribute("notice", notice);
+			disp = request.getRequestDispatcher("list_reservation.jsp");
+		} 
 		
 		if(disp == null )
 			disp = request.getRequestDispatcher("index.jsp");
