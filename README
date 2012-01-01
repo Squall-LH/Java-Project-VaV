@@ -14,3 +14,6 @@ Notes d'install:
 -Copier javax.persitence.jar dans tomcat/lib
 
 Fonctionne pour le moment uniquement avec Eclipse Indigo
+
+Faut-il gérer le remboursement, par exemple un client obtient sa 6ème réservation gratuite puis annule la 5ème, il doit être remboursé pour la 5ème mais payer la 6ème qui est maintenant la 5ème
+.... ou on ne le gère pas.

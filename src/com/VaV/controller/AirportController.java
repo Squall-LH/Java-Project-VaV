@@ -119,6 +119,14 @@ public class AirportController extends HttpServlet {
 			FlightDAO fDAO = new FlightDAO();
 			Flight f_depart = new Flight();
 			Flight f_arrival = new Flight();
+			ReservationDAO rDAO = new ReservationDAO();
+			Reservation r = new Reservation();
+			UserDAO uDAO = new UserDAO();
+			User u = new User((User)session.getAttribute("user"));
+			u = uDAO.find(u);
+			
+			r.setUser(u);
+			ArrayList<Reservation> lR = new ArrayList<Reservation>(rDAO.retrieve(r));
 			
 			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy");
 			SimpleDateFormat format_heure = new SimpleDateFormat("dd/MM/yy H:m");
@@ -159,6 +167,7 @@ public class AirportController extends HttpServlet {
 					session.setAttribute("flight_arrival", flight_arrival);
 					session.setAttribute("lf_depart", lf_depart);
 					session.setAttribute("lf_arrival", lf_arrival);
+					session.setAttribute("nb_reservation", Integer.valueOf(lR.size()));
 					
 					disp = request.getRequestDispatcher("list_flight.jsp");
 				}
@@ -217,7 +226,7 @@ public class AirportController extends HttpServlet {
 			for(Reservation current : lR) {
 				String tmp = new String("Vol aller-retour de " + current.getFlight_outbound().getAirport_depart().getName() + 
 						" à " + current.getFlight_outbound().getAirport_arrival().getName() +
-						".\n Date Aller : " + format.format(current.getFlight_outbound().getDate()) + "\n Date Retour : " 
+						"<br /> Date Aller : " + format.format(current.getFlight_outbound().getDate()) + "<br /> Date Retour : " 
 						+ format.format(current.getFlight_return().getDate())
 						);
 				/* On compare la date du vol de retour à la date d'aujourd'hui pour savoir s'il est encore possible d'annuler au moins le vol de retour ou pas */
@@ -282,8 +291,8 @@ public class AirportController extends HttpServlet {
 				for(int i = 0; i < lF.size(); i++) {
 					String tmp = new String("Vol de " + lF.get(i).getAirport_depart().getName() + 
 							" à " + lF.get(i).getAirport_arrival().getName() +
-							".\n Date du Vol : " + format_2.format(lF.get(i).getDate()) + 
-							"\nNombre de place libres : " + freeSeats.get(i) 
+							".<br /> Date du Vol : " + format_2.format(lF.get(i).getDate()) + 
+							"<br />Nombre de place libres : " + freeSeats.get(i) 
 							);
 					lFlightS.add(tmp);
 				}
