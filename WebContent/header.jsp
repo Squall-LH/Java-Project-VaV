@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     import="com.VaV.model.Airport"
+    import="com.VaV.model.Flight"
     %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">

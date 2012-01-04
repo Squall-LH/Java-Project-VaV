@@ -1,12 +1,13 @@
 package com.VaV.model;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.*;
 
 @Entity
-public class Flight {
+public class Flight implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
