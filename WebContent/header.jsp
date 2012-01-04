@@ -20,16 +20,16 @@
 <ul><li><a href="index.jsp">Accueil</a></li>
 <% 
 	if(user.getLevel() != com.VaV.model.User.VISITOR) {
-		out.print("<li><a href=\"user?action=logout\">Se déconnecter</a></li></ul>");
-		out.print("<li><a href=\"user?action=list_reservation\">Liste des réservations</a></li></ul>");
+		out.print("<li><a href=\"user?action=logout\">Se déconnecter</a></li>");
+		out.print("<li><a href=\"user?action=list_reservation\">Liste des réservations</a></li>");
 		
 		if(user.getLevel() == com.VaV.model.User.ADMIN) {
-			out.print("<li><a href=\"user?action=fill_database\">Remplir la BDD</a></li></ul>");
-			out.print("<li><a href=\"view_flight.jsp\">Voir la liste des vols</a></li></ul>");
+			out.print("<li><a href=\"user?action=fill_database\">Remplir la BDD</a></li>");
+			out.print("<li><a href=\"view_flight.jsp\">Voir la liste des vols</a></li>");
 		}
 	}
 	else {
-		out.print("<li><a href=\"login.jsp\">S'identifier</a></li></ul>");
+		out.print("<li><a href=\"login.jsp\">S'identifier</a></li>");
 	}
 
 	out.println("<p>");
@@ -37,6 +37,7 @@
 		out.println("Bienvenu " + user.getFirst_name() + " " + user.getLast_name());
 	}
 %>
+</ul>
 </p>
 </nav>
 </header>
