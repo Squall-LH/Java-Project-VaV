@@ -7,19 +7,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Vector;
-
 import javax.persistence.Query;
-
 import org.eclipse.persistence.expressions.ExpressionBuilder;
-import org.eclipse.persistence.internal.sessions.ArrayRecord;
 import org.eclipse.persistence.jpa.JpaEntityManager;
 import org.eclipse.persistence.queries.ReadAllQuery;
-import org.eclipse.persistence.queries.ReadObjectQuery;
-import org.eclipse.persistence.queries.SQLCall;
-
 import com.VaV.model.Flight;
-import com.VaV.model.Reservation;
 
 import java.sql.*;
 

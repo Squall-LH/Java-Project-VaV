@@ -1,27 +1,16 @@
 package com.VaV.controller;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Enumeration;
-import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
 import java.io.IOException;
-
 import com.VaV.execute.Fill;
 import com.VaV.model.*;
 import com.VaV.persistence.*;
-
-import javax.persistence.*;
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,8 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.eclipse.persistence.jpa.JpaEntityManager;
-import org.eclipse.persistence.queries.ReadObjectQuery;
 
 /**
  * Servlet implementation class AirportController

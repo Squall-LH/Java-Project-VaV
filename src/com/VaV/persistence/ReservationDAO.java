@@ -7,8 +7,6 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
-import com.VaV.model.Flight;
 import com.VaV.model.Reservation;
 import com.VaV.model.User;
 
