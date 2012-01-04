@@ -5,9 +5,12 @@
 
 <form method="post" action="user?action=seek">
    <p>
-   		<% 
-   		out.println(session.getAttribute("notice") + "<br />");
-   		session.setAttribute("notice", "");
+   		<%
+   		String notice = (String)session.getAttribute("notice");
+   		if(notice != null) {
+   			out.println(session.getAttribute("notice") + "<br />");
+   	   		session.setAttribute("notice", "");
+   		}
    		%>
    
        <label for="depart">De :</label>
