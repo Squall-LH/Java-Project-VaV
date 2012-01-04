@@ -103,8 +103,9 @@ public class AirportController extends HttpServlet {
 			user2 = userDAO.find(user);
 			if(user2 == null) {
 				System.out.println("log - pass invalide");
-				String notice = new String("Réservation impossible du fait de chevauchement avec des réservations précédentes");
+				String notice = new String("Identifiant invalide");
 				session.setAttribute("notice", notice);
+				disp = request.getRequestDispatcher("login.jsp");
 			}
 			else {
 				session.setAttribute("user", user2);

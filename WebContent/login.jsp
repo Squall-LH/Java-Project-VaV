@@ -4,7 +4,12 @@
 <h2>Vous identifier</h2>
 
 <form method="post" action="user?action=login">
-   <p>       
+   <p>  
+   		<% 
+   		out.println(session.getAttribute("notice") + "<br />");
+   		session.setAttribute("notice", "");
+   		%>
+   	
  	   <label for="id">Votre identifiant :</label>
        <input type="text" name="id" id="id" autofocus required />
        
