@@ -15,5 +15,7 @@ Notes d'install:
 
 Fonctionne pour le moment uniquement avec Eclipse Indigo
 
-Faut-il gérer le remboursement, par exemple un client obtient sa 6ème réservation gratuite puis annule la 5ème, il doit être remboursé pour la 5ème mais payer la 6ème qui est maintenant la 5ème
-.... ou on ne le gère pas.
+Au lancement de l'application, deux utilisateurs sont créés : 
+-user/user
+-admin/admin
+-> En s'identifant en tant qu'admins, on peut ensuite remplir la BDD avec des données fictives
