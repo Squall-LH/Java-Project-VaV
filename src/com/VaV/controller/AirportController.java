@@ -226,9 +226,6 @@ public class AirportController extends HttpServlet {
 					lRS_after_id.add(String.valueOf(current.getId()));
 					lRS_after.add(tmp);
 				}
-				
-				
-				System.out.println(current.getId());
 			}
 			
 			session.setAttribute("lRS_before", lRS_before);

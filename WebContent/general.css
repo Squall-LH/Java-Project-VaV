@@ -17,3 +17,7 @@ section {
 	width: 180px;
 	float: left;
 }
+
+ul {
+	list-style-type: none;
+}
