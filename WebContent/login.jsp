@@ -3,7 +3,7 @@
 <section>
 <h2>Vous identifier</h2>
 
-<form method="post" action="user?action=login">
+<form method="post" action="user?action=login" id="form_login">
    <p>  
    		<% 
    		String notice = (String)session.getAttribute("notice");

@@ -2,3 +2,18 @@ header {
 	background-color: #7699d9;
 	border-radius: 10px;
 }
+
+section {
+	background-color: #919191;
+	border-radius: 10px;
+}
+
+#form_index p label {
+	width: 110px;
+	float: left;
+}
+
+#form_login p label {
+	width: 180px;
+	float: left;
+}
