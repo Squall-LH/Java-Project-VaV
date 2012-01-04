@@ -52,7 +52,8 @@ public class AirportController extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		String action = request.getParameter("action");
-		
+		String Redirect_URL = null;
+		 
 		if(action == null) {
 			
 		}
@@ -255,7 +256,7 @@ public class AirportController extends HttpServlet {
 			
 			String notice = new String("Réservations annulées");
 			session.setAttribute("notice", notice);
-			disp = request.getRequestDispatcher("list_reservation.jsp");
+			Redirect_URL = response.encodeURL("user?action=list_reservation");
 		} else if(action.equals("view_flight")) {
 			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy");
 			SimpleDateFormat format_2 = new SimpleDateFormat("yyyy-MM-dd H:m:s");
@@ -294,9 +295,16 @@ public class AirportController extends HttpServlet {
 			disp = request.getRequestDispatcher("view_flight.jsp");
 		}
 		
-		if(disp == null )
+		if(Redirect_URL != null) {
+			response.sendRedirect(Redirect_URL);
+		}
+		else if(disp == null ) {
 			disp = request.getRequestDispatcher("index.jsp");
-		disp.forward(request, response);
+			disp.forward(request, response);
+		}
+		else {
+			disp.forward(request, response);
+		}
 	}
 
 }
