@@ -271,7 +271,7 @@ public class Controller extends HttpServlet {
 			
 			notice = new String("Réservations annulées");
 			session.setAttribute("notice", notice);
-			Redirect_URL = response.encodeURL("user?action=list_reservation");
+			Redirect_URL = response.encodeURL("controller?action=list_reservation");
 		} else if(action.equals("view_flight")) {
 			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 			SimpleDateFormat format_2 = new SimpleDateFormat("yyyy-MM-dd H:m:s");
