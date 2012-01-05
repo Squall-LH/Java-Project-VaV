@@ -63,14 +63,10 @@ public class Controller extends HttpServlet {
 			f.fill_database();
 			
 			AirportDAO aDAO = new AirportDAO();
-			
 			ArrayList<Airport> lA = new ArrayList<Airport>(aDAO.retrieveAll());
-			
 			ArrayList<String> lAS = new ArrayList<String>();
-			System.out.println("******************************" + lA.size());
 			for(Airport a : lA) {
 				lAS.add(a.getName());
-				System.out.println("Airport : " + a.getName() );
 			}
 			
 			request.getServletContext().setAttribute("airport_list", lAS);
@@ -130,7 +126,6 @@ public class Controller extends HttpServlet {
 				lf_arrival = fDAO.retrieveFlight(f_arrival);
 					
 				if(lf_depart.size() == 0 || lf_arrival.size() == 0) {
-					System.out.println("********************* No result");
 					notice = new String("Aucun vol correspondant à ces critères");
 					session.setAttribute("notice", notice);
 				}

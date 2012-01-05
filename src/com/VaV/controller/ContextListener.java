@@ -26,10 +26,9 @@ public class ContextListener implements ServletContextListener{
 		ArrayList<Airport> lA = new ArrayList<Airport>(aDAO.retrieveAll());
 		
 		ArrayList<String> lAS = new ArrayList<String>();
-		System.out.println("******************************" + lA.size());
+
 		for(Airport a : lA) {
 			lAS.add(a.getName());
-			System.out.println("Airport : " + a.getName() );
 		}
 		
 		event.getServletContext().setAttribute("date1", "20/01/2001");
