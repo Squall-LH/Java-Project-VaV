@@ -20,7 +20,6 @@ public class ReservationDAO extends DAO<Reservation> {
 		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd H:m:s");
 		
-		/* JPQL */
 		em = factory.createEntityManager();
 		em.getTransaction().begin();
 		
