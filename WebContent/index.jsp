@@ -39,6 +39,13 @@
        %>
        </select>
        
+       <script>
+			$(function(){
+				$('#date_outbound').datepicker();
+				$('#date_return').datepicker();
+				});
+		</script>
+       
        <br />
        <label for="date_outbound">Date aller :</label>
        <input type="text" name="date_outbound" id="date_outbound" value="<% if(session.getAttribute("date_outbound") != null) out.println(session.getAttribute("date_outbound")); else out.println(application.getAttribute("date_outbound")); %>" required autofocus />
