@@ -15,11 +15,10 @@
    		%>
      
        <label for="date1">Date 1</label>
-       <input type="text" name="date1" id="date1" required />
-       
+       <input type="text" name="date1" id="date1" value="<% if(session.getAttribute("date1") != null) out.println(session.getAttribute("date1")); else out.println(application.getAttribute("date1")); %>" required autofocus />
        <br />
        <label for="date2">Date 2</label>
-       <input type="text" name="date2" id="date2" required/>
+       <input type="text" name="date2" id="date2" value="<% if(session.getAttribute("date2") != null) out.println(session.getAttribute("date2")); else out.println(application.getAttribute("date2")); %>" required />
        
        <br />
        <input type="submit" value="Envoyer" />

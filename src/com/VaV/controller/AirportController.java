@@ -167,7 +167,11 @@ public class AirportController extends HttpServlet {
 
 						session.setAttribute("nb_reservation", nb_reservation);
 						disp = request.getRequestDispatcher("list_flight.jsp");
-				}	
+				}
+				
+				session.setAttribute("date_outbound", format.format(date_depart));
+				session.setAttribute("date_return", format.format(date_arrival));
+				
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
@@ -303,6 +307,8 @@ public class AirportController extends HttpServlet {
 				session.setAttribute("notice", notice);
 			}
 			
+			session.setAttribute("date1", format.format(d1));
+			session.setAttribute("date2", format.format(d2));
 			disp = request.getRequestDispatcher("view_flight.jsp");
 		}
 		
