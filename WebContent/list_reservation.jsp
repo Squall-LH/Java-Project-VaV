@@ -26,6 +26,7 @@
    		}
    		%>
 </p>
+
 <form method="post" action="user?action=remove">
    <p>
    		<ul>
@@ -38,7 +39,10 @@
        %>
        </ul>
        <br />
-       <input type="submit" value="Annuler la sélection" />
+       <%
+       if(lRS_after.size() > 0)
+    	   out.println("<input type=\"submit\" value=\"Annuler la sélection\" />");
+       %>
    </p>
 </form>
 </section>

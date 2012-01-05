@@ -8,13 +8,12 @@
    <p>
    		<% 
    		String notice = (String)session.getAttribute("notice");
-   		if(notice != null) {
-   			out.println("<span id=\"notice\">" + session.getAttribute("notice") + "</span>" + "<br />");
+   		if(notice != null && !notice.equals("")) {
+   			out.println("<span id=\"notice\">" + notice + "</span>" + "<br />");
    	   		session.setAttribute("notice", "");
    		}
    		%>
      
-       <br />
        <label for="date1">Date 1</label>
        <input type="text" name="date1" id="date1" required />
        
@@ -38,13 +37,14 @@
 		out.println("<ul>");
 		
 		for(String current : lFlightS) {
-			out.println("<li>" + current + "</li>");	
+			out.println("<li>" + current + "</li><br />");	
 		}
 		
 		out.println("</ul>");
 		
 		out.println("</p>");
 		
+		session.setAttribute("lFlightS", new ArrayList<String>());
 	}
 	
 	%>
