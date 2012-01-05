@@ -4,7 +4,7 @@
 <section>
 <h2>Réserver votre voyage</h2>
 
-<form method="post" action="user?action=reserve">
+<form method="post" action="controller?action=reserve">
    <p>
    		<% 
    		String notice = (String)session.getAttribute("notice");

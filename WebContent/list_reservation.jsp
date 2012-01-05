@@ -27,7 +27,7 @@
    		%>
 </p>
 
-<form method="post" action="user?action=remove">
+<form method="post" action="controller?action=remove">
    <p>
    		<ul>
        <% 

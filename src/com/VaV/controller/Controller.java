@@ -22,14 +22,14 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class AirportController
  */
-@WebServlet("/user")
-public class AirportController extends HttpServlet {
+@WebServlet("/controller")
+public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public AirportController() {
+	public Controller() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

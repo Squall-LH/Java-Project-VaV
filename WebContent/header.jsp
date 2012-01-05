@@ -25,11 +25,11 @@
 <ul><li><a href="index.jsp">Accueil</a></li>
 <% 
 	if(user.getLevel() != com.VaV.model.User.VISITOR) {
-		out.print("<li><a href=\"user?action=logout\">Se déconnecter</a></li>");
-		out.print("<li><a href=\"user?action=list_reservation\">Liste des réservations</a></li>");
+		out.print("<li><a href=\"controller?action=logout\">Se déconnecter</a></li>");
+		out.print("<li><a href=\"controller?action=list_reservation\">Liste des réservations</a></li>");
 		
 		if(user.getLevel() == com.VaV.model.User.ADMIN) {
-			out.print("<li><a href=\"user?action=fill_database\">Remplir la BDD</a></li>");
+			out.print("<li><a href=\"controller?action=fill_database\">Remplir la BDD</a></li>");
 			out.print("<li><a href=\"view_flight.jsp\">Voir la liste des vols</a></li>");
 		}
 	}

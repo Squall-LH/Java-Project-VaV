@@ -3,7 +3,7 @@
 <section>
 <h2>Réserver votre voyage</h2>
 
-<form method="post" action="user?action=seek" id="form_index">
+<form method="post" action="controller?action=seek" id="form_index">
    <p>
    		<%
    		String notice = (String)session.getAttribute("notice");
