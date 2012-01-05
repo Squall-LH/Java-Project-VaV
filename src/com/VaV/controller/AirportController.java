@@ -92,6 +92,7 @@ public class AirportController extends HttpServlet {
 			user2 = userDAO.find(user);
 			if(user2 == null) {
 				notice = new String("Identifiant invalide");
+				session.setAttribute("notice", notice);
 				disp = request.getRequestDispatcher("login.jsp");
 			}
 			else {
@@ -131,6 +132,7 @@ public class AirportController extends HttpServlet {
 				if(lf_depart.size() == 0 || lf_arrival.size() == 0) {
 					System.out.println("********************* No result");
 					notice = new String("Aucun vol correspondant à ces critères");
+					session.setAttribute("notice", notice);
 				}
 				else {
 					ArrayList<String> flight_depart = new ArrayList<String>();
@@ -175,6 +177,7 @@ public class AirportController extends HttpServlet {
 			
 			if(u == null|| u.getLevel() == User.VISITOR) {
 				notice = new String("Veuillez vous identifier avant de valider une réservation");
+				session.setAttribute("notice", notice);
 				disp = request.getRequestDispatcher("list_flight.jsp");
 			}
 			else {
@@ -199,11 +202,13 @@ public class AirportController extends HttpServlet {
 				results = rDAO.retriveInsider(depart.getDate(), arrival.getDate(), u);
 				if(results == null || results.size() > 0) {
 					notice = new String("Réservation impossible du fait de chevauchement avec des réservations précédentes");
+					session.setAttribute("notice", notice);
 				}
 				else {
 					r.set(depart, arrival, u, date);
 					rDAO.create(r);
 					notice = new String("Réservation effectiée");
+					session.setAttribute("notice", notice);
 				}
 			}
 		} else if(action.equals("list_reservation")) {
@@ -261,9 +266,10 @@ public class AirportController extends HttpServlet {
 			}
 			
 			notice = new String("Réservations annulées");
+			session.setAttribute("notice", notice);
 			Redirect_URL = response.encodeURL("user?action=list_reservation");
 		} else if(action.equals("view_flight")) {
-			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy");
+			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 			SimpleDateFormat format_2 = new SimpleDateFormat("yyyy-MM-dd H:m:s");
 			Date d1 = null;
 			Date d2 = null;
@@ -294,12 +300,12 @@ public class AirportController extends HttpServlet {
 				session.setAttribute("lFlightS", lFlightS);
 			} else {
 				notice = new String("Il n'existe pas de vol entre ces dates");
+				session.setAttribute("notice", notice);
 			}
 			
 			disp = request.getRequestDispatcher("view_flight.jsp");
 		}
 		
-		session.setAttribute("notice", notice);
 		if(Redirect_URL != null) {
 			response.sendRedirect(Redirect_URL);
 		}
