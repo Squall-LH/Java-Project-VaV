@@ -38,18 +38,23 @@
        </select>
  	
  	   <br />
- 	   Coût du billet :
+ 	   
        <%
-       Integer nb_reserve = (Integer)session.getAttribute("nb_reservation");
-       if(nb_reserve != 0 && nb_reserve % 5 == 0) {
-    	   out.println("Billet gratuit pour votre réservation nÂ°" + nb_reserve + " !");
+       if(user.getLevel() == com.VaV.model.User.VISITOR) {
+    	   out.println("Il est nécessaire de s'identifier avant de valider une réservation.");
        }
        else {
-    	   out.println("20 €");
-       }
-       	
+    	   out.println("Coût du billet :");
+    	   Integer nb_reserve = (Integer)session.getAttribute("nb_reservation");
+           if(nb_reserve != 0 && nb_reserve % 5 == 0) {
+        	   out.println("Billet gratuit pour votre réservation nÂ°" + nb_reserve + " !");
+           }
+           else {
+        	   out.println("20 €");
+           }
+           out.println("<input type=\"submit\" value=\"Réserver\" />");
+       }	
        	%> 
-       <input type="submit" value="Réserver" />
    </p>
 </form>
 </section>

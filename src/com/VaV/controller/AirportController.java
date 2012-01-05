@@ -53,7 +53,8 @@ public class AirportController extends HttpServlet {
 		
 		String action = request.getParameter("action");
 		String Redirect_URL = null;
-		 
+		String notice = null;
+		
 		if(action == null) {
 			
 		}
@@ -90,9 +91,7 @@ public class AirportController extends HttpServlet {
 			
 			user2 = userDAO.find(user);
 			if(user2 == null) {
-				System.out.println("log - pass invalide");
-				String notice = new String("Identifiant invalide");
-				session.setAttribute("notice", notice);
+				notice = new String("Identifiant invalide");
 				disp = request.getRequestDispatcher("login.jsp");
 			}
 			else {
@@ -110,34 +109,28 @@ public class AirportController extends HttpServlet {
 			Flight f_arrival = new Flight();
 			ReservationDAO rDAO = new ReservationDAO();
 			Reservation r = new Reservation();
-			UserDAO uDAO = new UserDAO();
-			User u = new User((User)session.getAttribute("user"));
-			u = uDAO.find(u);
 			
-			r.setUser(u);
-			ArrayList<Reservation> lR = new ArrayList<Reservation>(rDAO.retrieve(r));
-			
-			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy");
-			SimpleDateFormat format_heure = new SimpleDateFormat("dd/MM/yy H:m");
-		    Date date_depart;
-		    Date date_arrival;
+				
+			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+			SimpleDateFormat format_heure = new SimpleDateFormat("dd/MM/yyyy H:m");
+			Date date_depart;
+			Date date_arrival;
 
 			try {
 				date_depart = format.parse(request.getParameter("date_depart"));
 				date_arrival = format.parse(request.getParameter("date_arrival"));
-				
+					
 				f_depart.set(airport_depart, airport_arrival, null, date_depart);
 				f_arrival.set(airport_arrival, airport_depart, null, date_arrival);
-				
+					
 				ArrayList<Flight> lf_depart;
 				ArrayList<Flight> lf_arrival;
 				lf_depart = fDAO.retrieveFlight(f_depart);
 				lf_arrival = fDAO.retrieveFlight(f_arrival);
-				
+					
 				if(lf_depart.size() == 0 || lf_arrival.size() == 0) {
 					System.out.println("********************* No result");
-					String notice = new String("Aucun vol correspondant à ces critères");
-					session.setAttribute("notice", notice);
+					notice = new String("Aucun vol correspondant à ces critères");
 				}
 				else {
 					ArrayList<String> flight_depart = new ArrayList<String>();
@@ -146,56 +139,72 @@ public class AirportController extends HttpServlet {
 						String tmp = new String(format_heure.format(current.getDate()));
 						flight_depart.add(tmp);
 					}
-					
-					for(Flight current : lf_arrival) {
-						String tmp = new String(format_heure.format(current.getDate()));
-						flight_arrival.add(tmp);
-					}
-					
-					session.setAttribute("flight_depart", flight_depart);
-					session.setAttribute("flight_arrival", flight_arrival);
-					session.setAttribute("lf_depart", lf_depart);
-					session.setAttribute("lf_arrival", lf_arrival);
-					session.setAttribute("nb_reservation", Integer.valueOf(lR.size()));
-					
-					disp = request.getRequestDispatcher("list_flight.jsp");
+						
+						for(Flight current : lf_arrival) {
+							String tmp = new String(format_heure.format(current.getDate()));
+							flight_arrival.add(tmp);
+						}
+						
+						session.setAttribute("flight_depart", flight_depart);
+						session.setAttribute("flight_arrival", flight_arrival);
+						session.setAttribute("lf_depart", lf_depart);
+						session.setAttribute("lf_arrival", lf_arrival);
+						
+						/* Si l'user est identifié, on récupère le nombre de réservation à son actif affin de savoir si on lui
+						 * offre un billet gratuit ou pas
+						 */
+						UserDAO uDAO = new UserDAO();
+						User u = new User((User)session.getAttribute("user"));
+						Integer nb_reservation = 0;
+						if(u != null || u.getLevel() != User.VISITOR) {
+							u = uDAO.find(u);
+							r.setUser(u);
+							ArrayList<Reservation> lR = new ArrayList<Reservation>(rDAO.retrieve(r));
+							nb_reservation = lR.size();
+						}
+
+						session.setAttribute("nb_reservation", nb_reservation);
+						disp = request.getRequestDispatcher("list_flight.jsp");
+				}	
+				} catch (ParseException e) {
+					e.printStackTrace();
 				}
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
 		} else if(action.equals("reserve")) {
 			UserDAO uDAO = new UserDAO();
 			User u = new User((User)session.getAttribute("user"));
-			u = uDAO.find(u);
 			
-			Flight depart = new Flight();
-			Flight arrival = new Flight();
-			FlightDAO fDAO = new FlightDAO();
-			ReservationDAO rDAO = new ReservationDAO();
-			Reservation r = new Reservation();
-			
-			depart.setId(Integer.parseInt(request.getParameter("depart")));
-			arrival.setId(Integer.parseInt(request.getParameter("arrival")));
-			
-			/* On récupère la date d'aujourd'hui */
-			Date date = Calendar.getInstance().getTime();
-			
-			depart = fDAO.find(depart);
-			arrival = fDAO.find(arrival);
-			
-			/* On vérifie qu'il n'y a pas de chevauchement de date de vol -Fonctionne à priori, mais à tester d'avantage- */
-			ArrayList<Reservation> results = new ArrayList<Reservation>();
-			results = rDAO.retriveInsider(depart.getDate(), arrival.getDate(), u);
-			if(results == null || results.size() > 0) {
-				String notice = new String("Réservation impossible du fait de chevauchement avec des réservations précédentes");
-				session.setAttribute("notice", notice);
+			if(u == null|| u.getLevel() == User.VISITOR) {
+				notice = new String("Veuillez vous identifier avant de valider une réservation");
+				disp = request.getRequestDispatcher("list_flight.jsp");
 			}
 			else {
-				r.set(depart, arrival, u, date);
-				rDAO.create(r);
+				u = uDAO.find(u);
+				Flight depart = new Flight();
+				Flight arrival = new Flight();
+				FlightDAO fDAO = new FlightDAO();
+				ReservationDAO rDAO = new ReservationDAO();
+				Reservation r = new Reservation();
 				
-				String notice = new String("Réservation effectiée");
-				session.setAttribute("notice", notice);
+				depart.setId(Integer.parseInt(request.getParameter("depart")));
+				arrival.setId(Integer.parseInt(request.getParameter("arrival")));
+				
+				/* On récupère la date d'aujourd'hui */
+				Date date = Calendar.getInstance().getTime();
+				
+				depart = fDAO.find(depart);
+				arrival = fDAO.find(arrival);
+				
+				/* On vérifie qu'il n'y a pas de chevauchement de date de vol -Fonctionne à priori, mais à tester d'avantage- */
+				ArrayList<Reservation> results = new ArrayList<Reservation>();
+				results = rDAO.retriveInsider(depart.getDate(), arrival.getDate(), u);
+				if(results == null || results.size() > 0) {
+					notice = new String("Réservation impossible du fait de chevauchement avec des réservations précédentes");
+				}
+				else {
+					r.set(depart, arrival, u, date);
+					rDAO.create(r);
+					notice = new String("Réservation effectiée");
+				}
 			}
 		} else if(action.equals("list_reservation")) {
 			UserDAO uDAO = new UserDAO();
@@ -251,8 +260,7 @@ public class AirportController extends HttpServlet {
 				} catch (Exception e) {}
 			}
 			
-			String notice = new String("Réservations annulées");
-			session.setAttribute("notice", notice);
+			notice = new String("Réservations annulées");
 			Redirect_URL = response.encodeURL("user?action=list_reservation");
 		} else if(action.equals("view_flight")) {
 			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy");
@@ -285,13 +293,13 @@ public class AirportController extends HttpServlet {
 
 				session.setAttribute("lFlightS", lFlightS);
 			} else {
-				String notice = new String("Il n'existe pas de vol entre ces dates");
-				session.setAttribute("notice", notice);
+				notice = new String("Il n'existe pas de vol entre ces dates");
 			}
 			
 			disp = request.getRequestDispatcher("view_flight.jsp");
 		}
 		
+		session.setAttribute("notice", notice);
 		if(Redirect_URL != null) {
 			response.sendRedirect(Redirect_URL);
 		}
