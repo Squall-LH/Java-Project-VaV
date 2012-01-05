@@ -1,0 +1,48 @@
+<%@ include file="header.jsp"%>
+<section>
+<h2>Liste des réservations à venir et passées</h2>
+
+
+<h3>Réservation passées</h3>
+
+<p>		
+	   <ul>
+       <% 
+       		ArrayList<String> lRS_before = (ArrayList<String>) session.getAttribute("lRS_before");
+       		for(String current : lRS_before) {
+       			out.println("<li>" + current + "</li><br />");
+       		}
+       %>
+       </ul>
+</p>
+
+<h3>Réservation à venir</h3>
+<p>
+	    <% 
+		String notice = (String)session.getAttribute("notice");
+   		if(notice != null) {
+   			out.println("<span id=\"notice\">" + session.getAttribute("notice") + "</span>" + "<br />");
+   	   		session.setAttribute("notice", "");
+   		}
+   		%>
+</p>
+<form method="post" action="user?action=remove">
+   <p>
+   		<ul>
+       <% 
+    		ArrayList<String> lRS_after_id = (ArrayList<String>) session.getAttribute("lRS_after_id");
+       		ArrayList<String> lRS_after = (ArrayList<String>) session.getAttribute("lRS_after");
+       		for(int i = 0; i < lRS_after_id.size(); i++) {
+       			out.println("<li><input type=\"checkbox\" name=\"" + lRS_after_id.get(i) + "\" id=\"epinards\" /> <label for=\"" + lRS_after_id.get(i) + "\">" + lRS_after.get(i) + "</label><br /></li>");
+       		}
+       %>
+       </ul>
+       <br />
+       <input type="submit" value="Annuler la sélection" />
+   </p>
+</form>
+</section>
+
+</section>
+
+<%@ include file="footer.html"%>
