@@ -1,11 +1,47 @@
+body {
+	font-size: 14px;
+	background: #ededed;
+}
+
+#document {
+	width: 900px;
+	margin: 0 auto;
+	border-radius: 5px;
+	background: white;
+	padding: 10px;
+}
+
+#notice {
+	color: #ea0000;
+}
+
 header {
 	background-color: #7699d9;
-	border-radius: 10px;
+	padding: 5px;
+	margin: 5px;
+}
+
+header li {
+	display: inline;
+	padding: 10px;
+}
+
+header li a {
+	color: white;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+header li a:hover {
+	color: yellow;
+	text-decoration: none;
+	font-weight: bold;
 }
 
 section {
-	background-color: #919191;
-	border-radius: 10px;
+	background-color: #edadad;
+	padding: 5px;
+	margin: 5px;
 }
 
 #form_index p label {
@@ -20,4 +56,8 @@ section {
 
 ul {
 	list-style-type: none;
+}
+
+footer {
+	text-align: center;
 }

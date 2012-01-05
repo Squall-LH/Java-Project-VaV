@@ -12,6 +12,7 @@
 <title>Vol au Vent</title>
 </head>
 <body>
+<div id="document">
 <jsp:useBean id="user" class="com.VaV.model.User" scope="session"/>
 <%@ page import="java.util.ArrayList" %>
 <header>

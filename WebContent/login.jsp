@@ -8,7 +8,7 @@
    		<% 
    		String notice = (String)session.getAttribute("notice");
    		if(notice != null) {
-   			out.println(session.getAttribute("notice") + "<br />");
+   			out.println("<span id=\"notice\">" + session.getAttribute("notice") + "</span>" + "<br />");
    	   		session.setAttribute("notice", "");
    		}
    		%>
