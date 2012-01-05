@@ -28,13 +28,11 @@ header li {
 
 header li a {
 	color: white;
-	text-decoration: none;
 	font-weight: bold;
 }
 
 header li a:hover {
 	color: yellow;
-	text-decoration: none;
 	font-weight: bold;
 }
 
