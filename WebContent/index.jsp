@@ -40,12 +40,11 @@
        </select>
        
        <br />
-       <label for="date_depart">Date aller :</label>
-       <input type="text" name="date_depart" id="date_depart" value="<% if(session.getAttribute("date_outbound") != null) out.println(session.getAttribute("date_outbound")); else out.println(application.getAttribute("date_outbound")); %>" required autofocus />
-       
+       <label for="date_outbound">Date aller :</label>
+       <input type="text" name="date_outbound" id="date_outbound" value="<% if(session.getAttribute("date_outbound") != null) out.println(session.getAttribute("date_outbound")); else out.println(application.getAttribute("date_outbound")); %>" required autofocus />
        <br />
-       <label for="date_arrival">Date retour :</label>
-       <input type="text" name="date_arrival" id="date_arrival" value="<% if(session.getAttribute("date_return") != null) out.println(session.getAttribute("date_return")); else out.println(application.getAttribute("date_return")); %>" required/>
+       <label for="date_return">Date retour :</label>
+       <input type="text" name="date_return" id="date_return" value="<% if(session.getAttribute("date_return") != null) out.println(session.getAttribute("date_return")); else out.println(application.getAttribute("date_return")); %>" required/>
        
        <br />
        <input type="submit" value="Envoyer" />

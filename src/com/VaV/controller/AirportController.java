@@ -114,15 +114,15 @@ public class AirportController extends HttpServlet {
 				
 			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 			SimpleDateFormat format_heure = new SimpleDateFormat("dd/MM/yyyy H:m");
-			Date date_depart;
-			Date date_arrival;
+			Date date_outbound;
+			Date date_return;
 
 			try {
-				date_depart = format.parse(request.getParameter("date_depart"));
-				date_arrival = format.parse(request.getParameter("date_arrival"));
+				date_outbound = format.parse(request.getParameter("date_outbound"));
+				date_return = format.parse(request.getParameter("date_return"));
 					
-				f_depart.set(airport_depart, airport_arrival, null, date_depart);
-				f_arrival.set(airport_arrival, airport_depart, null, date_arrival);
+				f_depart.set(airport_depart, airport_arrival, null, date_outbound);
+				f_arrival.set(airport_arrival, airport_depart, null, date_return);
 					
 				ArrayList<Flight> lf_depart;
 				ArrayList<Flight> lf_arrival;
@@ -169,8 +169,8 @@ public class AirportController extends HttpServlet {
 						disp = request.getRequestDispatcher("list_flight.jsp");
 				}
 				
-				session.setAttribute("date_outbound", format.format(date_depart));
-				session.setAttribute("date_return", format.format(date_arrival));
+				session.setAttribute("date_outbound", format.format(date_outbound));
+				session.setAttribute("date_return", format.format(date_return));
 				
 				} catch (ParseException e) {
 					e.printStackTrace();

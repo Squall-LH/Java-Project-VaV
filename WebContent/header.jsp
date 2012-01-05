@@ -9,6 +9,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" href="general.css" />
+<link type="text/css" href="js/css/ui-lightness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
+<script src="js/jquery-1.6.2.min.js"></script>
+<script src="js/jquery-ui-1.8.16.custom.min.js"></script>
+<script type="text/javascript" src="js/jquery.ui.datepicker-fr.js"></script>
 <title>Vol au Vent</title>
 </head>
 <body>

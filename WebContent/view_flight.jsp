@@ -13,7 +13,14 @@
    	   		session.setAttribute("notice", "");
    		}
    		%>
-     
+     	
+     	<script>
+			$(function(){
+				$('#date1').datepicker();
+				$('#date2').datepicker();
+				});
+		</script>
+     	
        <label for="date1">Date 1</label>
        <input type="text" name="date1" id="date1" value="<% if(session.getAttribute("date1") != null) out.println(session.getAttribute("date1")); else out.println(application.getAttribute("date1")); %>" required autofocus />
        <br />
