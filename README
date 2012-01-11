@@ -1,9 +1,33 @@
 Projet Vol au Vent
 
+Compatibilité : Fonctionne avec Eclipse Indigo, Tomcat7 et EclipseLink 2.3
+
+Installation :
+
+Il faut créer une base de donnée mysql avec les propriéetées suivantes :
 nom de la base : vav
 user de base pour mysql : vol
 mdp de base pour mysql : vent
 
+Enuite:
+
+-copier ces fichiers dans $ANT_HOME, vaut chez moi /usr/share/java/apache-ant
+cp /opt/apache-tomcat-7.0.21/lib/tomcat-coyote.jar $ANT_HOME/lib/
+cp /opt/apache-tomcat-7.0.21/lib/tomcat-util.jar $ANT_HOME/lib/
+cp /opt/apache-tomcat-7.0.21/bin/tomcat-juli.jar $ANT_HOME/lib/
+
+Copier les jar suivant dans le dossier lib du dossier d'installation de tomcat :
+cp lib/eclipselink.jar /opt/apache-tomcat-7.0.12/lib/
+cp lib/javax.persitence.jar /opt/apache-tomcat-7.0.12/lib
+Configuration de tomcat :
+l'user tomcat dont le password est tomcat doit être dans les groupes : tomcat, manager-script
+
+Au lancement de l'application, deux utilisateurs sont créés : 
+-user/user
+-admin/admin
+-> En s'identifant en tant qu'admins, on peut ensuite remplir la BDD avec des données fictives
+
+Notes:
 EclipseLink
 Quelques liens : 
 -http://www.jmdoudoux.fr/java/dej/chap-jpa.htm
@@ -12,17 +36,3 @@ Quelques liens :
 Notes d'install:
 -http://wiki.eclipse.org/EclipseLink/Installing_and_Configuring_EclipseLink
 
-Compatibilité : Fonctionne avec Eclipse Indigo, Tomcat7 et EclipseLink 2.3
--Copier lib/javax.persitence.jar dans tomcat/lib
--copier ces fichiers dans $ANT_HOME, vaut chez moi /usr/share/java/apache-ant
-cp /opt/apache-tomcat-7.0.21/lib/tomcat-coyote.jar $ANT_HOME/lib/
-cp /opt/apache-tomcat-7.0.21/lib/tomcat-util.jar $ANT_HOME/lib/
-cp /opt/apache-tomcat-7.0.21/bin/tomcat-juli.jar $ANT_HOME/lib/
-
-Configuration de tomcat :
-l'user tomcat dont le password est tomcat doit être dans les groupes : tomcat, manager-script
-
-Au lancement de l'application, deux utilisateurs sont créés : 
--user/user
--admin/admin
--> En s'identifant en tant qu'admins, on peut ensuite remplir la BDD avec des données fictives
