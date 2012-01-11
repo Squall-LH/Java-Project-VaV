@@ -30,6 +30,10 @@ public class Flight implements Serializable{
 
 	}
 	
+	public Flight(Airport airport_depart, Airport airport_arrival, Plane plane, Date date) {
+		set(airport_depart, airport_arrival, plane, date);
+	}
+	
 	public void set(Airport airport_depart, Airport airport_arrival, Plane plane, Date date) {
 		this.airport_depart = airport_depart;
 		this.airport_arrival = airport_arrival;

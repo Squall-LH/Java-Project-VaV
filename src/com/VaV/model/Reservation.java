@@ -30,6 +30,10 @@ public class Reservation implements Serializable{
 
 	}
 	
+	public Reservation(Flight flight_outbound, Flight flight_return, User user, Date date) {
+		set(flight_outbound, flight_return, user, date);
+	}
+	
 	public void set(Flight flight_outbound, Flight flight_return, User user, Date date) {
 		this.flight_outbound = flight_outbound;
 		this.flight_return = flight_return;

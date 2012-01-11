@@ -1,5 +1,5 @@
-drop table `reservation`;
-drop table `user`;
-drop table `flight`;
-drop table `airport`;
-drop table `plane`;
+drop table RESERVATION;
+drop table USER;
+drop table FLIGHT;
+drop table PLANE;
+drop table AIRPORT;
