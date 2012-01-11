@@ -136,7 +136,7 @@ public class Fill {
 		c.set(2012, Calendar.MARCH, 6, 10, 20); r.set(f8, f7, user7, c.getTime()); rDAO.create(r);
 		c.set(2012, Calendar.MARCH, 6, 10, 20); r.set(f10, f9, user8, c.getTime()); rDAO.create(r);
 		c.set(2012, Calendar.MARCH, 6, 10, 20); r.set(f9, f10, user9, c.getTime()); rDAO.create(r);
-		c.set(2012, Calendar.MARCH, 6, 10, 20); r.set(f9, f10, user10, c.getTime()); rDAO.create(r);
+		c.set(2012, Calendar.MARCH, 6, 10, 20); r.set(f10, f9, user10, c.getTime()); rDAO.create(r);
 	}
 	
 	public void fill_basics() {

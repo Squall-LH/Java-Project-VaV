@@ -3,9 +3,14 @@ package com.VaV.persistence;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Query;
 
+import org.eclipse.persistence.jpa.JpaEntityManager;
+import org.eclipse.persistence.queries.ReadAllQuery;
+
+import com.VaV.model.Airport;
 import com.VaV.model.Reservation;
 import com.VaV.model.User;
 
@@ -33,6 +38,19 @@ public class ReservationDAO extends DAO<Reservation> {
 		System.out.println("****************************"+ results);
 		
 		
+		return results;
+	}
+	
+	public List<Reservation> retrieveAll() {
+		em = factory.createEntityManager();
+		em.getTransaction().begin();
+		
+		ReadAllQuery query = new ReadAllQuery();
+		Reservation obj = new Reservation();
+		query.setExampleObject(obj);
+		 
+		JpaEntityManager jpa = (JpaEntityManager) em.getDelegate();
+		List<Reservation> results = (List<Reservation>) jpa.getServerSession().acquireClientSession().executeQuery(query);
 		return results;
 	}
 }

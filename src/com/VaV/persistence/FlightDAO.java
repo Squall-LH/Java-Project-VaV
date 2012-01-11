@@ -10,6 +10,7 @@ import org.eclipse.persistence.expressions.ExpressionBuilder;
 import org.eclipse.persistence.jpa.JpaEntityManager;
 import org.eclipse.persistence.queries.ReadAllQuery;
 import com.VaV.model.Flight;
+import com.VaV.model.Reservation;
 
 public class FlightDAO extends DAO<Flight> {
 
@@ -36,7 +37,6 @@ public class FlightDAO extends DAO<Flight> {
 		em.getTransaction().begin();
 		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd H:m:s");
 		
-		/* JPQL */
 		Query query = em.createQuery("select f FROM Flight f join f.airport_depart a1 join f.airport_arrival a2 where a1.name = ?1 and a2.name = ?2 and (f.date between ?3 and ?4)" +
 		"and f.plane.id IN (select p.id FROM Plane p where (SELECT COUNT(r.id) From Reservation r where r.flight_outbound = f or r.flight_return = f) < p.seats)");
 		query.setParameter(1, f.getAirport_depart().getName());
@@ -85,6 +85,19 @@ public class FlightDAO extends DAO<Flight> {
 			System.out.println("ID du Vol : " + current.getId() + " | Nombre de Siège libre : " + (seat-nb));
 		}
 
+		return results;
+	}
+	
+	public List<Flight> retrieveAll() {
+		em = factory.createEntityManager();
+		em.getTransaction().begin();
+		
+		ReadAllQuery query = new ReadAllQuery();
+		Flight obj = new Flight();
+		query.setExampleObject(obj);
+		 
+		JpaEntityManager jpa = (JpaEntityManager) em.getDelegate();
+		List<Flight> results = (List<Flight>) jpa.getServerSession().acquireClientSession().executeQuery(query);
 		return results;
 	}
 }
