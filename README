@@ -19,6 +19,9 @@ cp /opt/apache-tomcat-7.0.21/lib/tomcat-coyote.jar $ANT_HOME/lib/
 cp /opt/apache-tomcat-7.0.21/lib/tomcat-util.jar $ANT_HOME/lib/
 cp /opt/apache-tomcat-7.0.21/bin/tomcat-juli.jar $ANT_HOME/lib/
 
+Configuration de tomcat :
+l'user tomcat dont le password est tomcat doit être dans les groupes : tomcat, manager-script
+
 Au lancement de l'application, deux utilisateurs sont créés : 
 -user/user
 -admin/admin
