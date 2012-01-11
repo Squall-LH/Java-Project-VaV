@@ -4,17 +4,15 @@
 
 
 <h3>Réservation passées</h3>
-
-<p>		
+	
 	   <ul>
        <% 
        		ArrayList<String> lRS_before = (ArrayList<String>) session.getAttribute("lRS_before");
        		for(String current : lRS_before) {
-       			out.println("<li>" + current + "</li><br />");
+       			out.println("<li>" + current + "</li>");
        		}
        %>
        </ul>
-</p>
 
 <h3>Réservation à venir</h3>
 <p>
@@ -28,16 +26,17 @@
 </p>
 
 <form method="post" action="controller?action=remove">
-   <p>
+   
    		<ul>
        <% 
     		ArrayList<String> lRS_after_id = (ArrayList<String>) session.getAttribute("lRS_after_id");
        		ArrayList<String> lRS_after = (ArrayList<String>) session.getAttribute("lRS_after");
        		for(int i = 0; i < lRS_after_id.size(); i++) {
-       			out.println("<li><input type=\"checkbox\" name=\"" + lRS_after_id.get(i) + "\" id=\"epinards\" /> <label for=\"" + lRS_after_id.get(i) + "\">" + lRS_after.get(i) + "</label><br /></li>");
+       			out.println("<li><input type=\"checkbox\" name=\"" + lRS_after_id.get(i) + "\" id=\"" + lRS_after_id.get(i) + "\" /> <label for=\"" + lRS_after_id.get(i) + "\">" + lRS_after.get(i) + "</label><br /></li>");
        		}
        %>
        </ul>
+   <p>
        <br />
        <%
        if(lRS_after.size() > 0)
@@ -45,7 +44,6 @@
        %>
    </p>
 </form>
-</section>
 
 </section>
 
