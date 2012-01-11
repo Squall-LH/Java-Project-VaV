@@ -45,9 +45,9 @@ public class Fill {
 		Airport airport2 = new Airport();
 		
 		airport1.setName("Paris Charles de Gaulle (CDG)");
-		airportDAO.create(airport1);
+		airport1 = airportDAO.find(airport1);
 		airport2.setName("Newark Liberty International (EWR)");
-		airportDAO.create(airport2);
+		airport2 = airportDAO.find(airport2);
 		
 		PlaneDAO planeDAO = new PlaneDAO();
 		Plane plane1 = new Plane();
@@ -139,7 +139,7 @@ public class Fill {
 		c.set(2012, Calendar.MARCH, 6, 10, 20); r.set(f9, f10, user10, c.getTime()); rDAO.create(r);
 	}
 	
-	public void fill_basic_user() {
+	public void fill_basics() {
 		User user = new User();
 		UserDAO userDAO = new UserDAO();
 		
@@ -147,5 +147,14 @@ public class Fill {
 		userDAO.create(user);
 		user.set("Nom d'admin", "Prénom d'admin", "admin", "admin", 0, User.ADMIN);
 		userDAO.create(user);
+		
+		AirportDAO airportDAO = new AirportDAO();
+		Airport airport1 = new Airport();
+		Airport airport2 = new Airport();
+		
+		airport1.setName("Paris Charles de Gaulle (CDG)");
+		airportDAO.create(airport1);
+		airport2.setName("Newark Liberty International (EWR)");
+		airportDAO.create(airport2);
 	}
 }

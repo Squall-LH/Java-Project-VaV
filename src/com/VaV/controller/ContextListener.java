@@ -17,7 +17,7 @@ public class ContextListener implements ServletContextListener{
 	public void contextInitialized(ServletContextEvent event) {		
 		try {
 			Fill f = new Fill();
-			f.fill_basic_user();
+			f.fill_basics();
 		}
 		catch (Exception e) {}
 		
