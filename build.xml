@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="vol_au_vent">
+
+<!--
+===================================================================== 
+PROPERTIES 
+=====================================================================
+-->
+<property name="project.name" value="${ant.project.name}" />
+<property name="project.identifier" value="VaV" />
+<property name="database.dir" value="database" />
+<property name="src.dir" value="src" />
+<property name="build.dir" value="ant_build" />
+<property name="classes.dir" value="${build.dir}/WEB-INF/classes" />
+<property name="war.file" value="${build.dir}/${project.identifier}.war" />
+<property name="eclipse.webcontent.dir" value="WebContent" />
+<property name="test.reports.dir" location="test_reports" />
+<property name="doc.dir" location="doc" />
+
+<property name="tomcat.manager.url" value="http://localhost:8080/manager/text/" />
+<property name="tomcat.manager.username" value="tomcat" />
+<property name="tomcat.manager.password" value="tomcat" />
+
+<!-- 
+=====================================================================
+PATHS
+=====================================================================
+ -->	
+<path id="compile.classpath">
+	<pathelement location="lib/javaee-api-6.0.jar" />
+	<pathelement location="lib/eclipselink.jar" />
+	<pathelement location="lib/javax.persistence_1.0.0.jar" />
+	<pathelement location="lib/javax.persistence_2.0.3.v201010191057.jar" />
+	<pathelement location="lib/junit-4.10.jar" />
+</path>
+
+<path id="test.classpath">
+	<pathelement location="${classes.dir}" />
+	<pathelement location="lib/eclipselink.jar" />
+	<pathelement location="lib/javax.persistence_1.0.0.jar" />
+	<pathelement location="lib/javax.persistence_2.0.3.v201010191057.jar" />
+	<pathelement location="lib/junit-4.10.jar" />
+	<pathelement location="lib/javaee-api-6.0.jar" />
+</path>
+
+<path id="catalina.ant.classpath">
+    <pathelement location="/opt/apache-tomcat-7.0.21/lib/catalina-ant.jar" />
+    <!-- copier ces fichiers dans $ANT_HOME 
+    <pathelement location="/opt/apache-tomcat-7.0.21/lib/tomcat-coyote.jar" />
+    <pathelement location="/opt/apache-tomcat-7.0.21/lib/tomcat-util.jar" />
+    <pathelement location="/opt/apache-tomcat-7.0.21/bin/tomcat-juli.jar" /> !-->
+</path>
+
+<!-- 
+=====================================================================
+INITIALIZATION
+=====================================================================
+ -->	
+<target name="init" description="create directories">
+	<mkdir dir="${build.dir}" />
+	<mkdir dir="${classes.dir}" />
+	<mkdir dir="${test.reports.dir}" />
+</target>
+
+<!-- 
+=====================================================================
+CLEAN
+=====================================================================
+ -->	
+<target name="clean" depends="init">
+	<delete>
+		<fileset dir="${classes.dir}" includes="*.class" />
+	</delete>
+	<delete file="${war.file}" />
+	<delete dir="${test.reports.dir/*}" />
+</target>
+
+<!-- 
+=====================================================================
+COMPILE
+=====================================================================
+ -->	
+<target name="compile" depends="clean">
+	<javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false">
+		<classpath refid="compile.classpath" />
+	</javac>
+	<copy todir="${classes.dir}">  
+	  <fileset dir="${src.dir}" />
+	</copy>  
+</target>
+
+<!-- 
+=====================================================================
+TESTS
+=====================================================================
+ -->
+<target name="tests" depends="compile">
+	<junit printsummary="true" failureproperty="junit.failure" haltonfailure="false"> 
+		<classpath refid="test.classpath" />
+		<formatter type="plain" />
+		<formatter type="xml" />
+		<batchtest fork="yes" todir="${test.reports.dir}">
+			<fileset dir="${classes.dir}">
+				<include name="**/Test*.class" />
+			</fileset>	
+		</batchtest>
+	</junit>
+	<junitreport todir="${test.reports.dir}">
+		<fileset dir="${test.reports.dir}">
+			<include name="TEST-*.xml"/>
+		</fileset>
+		<report format="frames" todir="${test.reports.dir}"/>
+	</junitreport>
+
+	<fail if="junit.failure" message="Unit test(s) failed.  See reports!"/>
+</target>
+
+<!-- 
+=====================================================================
+GENERATE DOCUMENTATION
+=====================================================================
+ -->
+<target name="javadoc">
+	<mkdir dir="${doc.dir}" />
+	<javadoc sourcepath="${src.dir}" destdir="${doc.dir}">
+		<doctitle> <![CDATA[<h1>${project.name}</h1>]]> </doctitle>
+	</javadoc>	
+</target>
+
+<!-- 
+=====================================================================
+GENERATE WAR FILE 
+=====================================================================
+ -->	
+<target name="war" depends="compile">
+	<delete file="${war.file}" />
+	<copy todir="${build.dir}">
+		<fileset dir="${eclipse.webcontent.dir}" excludes="**/*.class"/>
+	</copy>
+	<jar jarfile="${war.file}" basedir="${build.dir}" />
+</target>
+ 
+<!-- 
+=====================================================================
+DEPLOY / UNDEPLOY UNDER TOMCAT
+=====================================================================
+-don't forget to sudo cp /opt/apache-tomcat-6.0.33/lib/catalina-ant.jar /usr/share/ant/lib/
+-tomcat user mmust be in the manager-script group
+ --> 	
+<taskdef name="deploy" 		classname="org.apache.catalina.ant.DeployTask">
+	<classpath refid="catalina.ant.classpath"/>
+</taskdef>	
+
+<taskdef name="start"     	classname="org.apache.catalina.ant.StartTask">
+	<classpath refid="catalina.ant.classpath"/>
+</taskdef>	
+
+<taskdef name="stop"      	classname="org.apache.catalina.ant.StopTask">
+	<classpath refid="catalina.ant.classpath"/>
+</taskdef>	
+
+<taskdef name="undeploy"  	classname="org.apache.catalina.ant.UndeployTask">
+	<classpath refid="catalina.ant.classpath"/>
+</taskdef>	
+
+<target name="deploy" depends="war" description="Deploy web application in Tomcat">
+	<deploy url="${tomcat.manager.url}"
+         username="${tomcat.manager.username}"
+         password="${tomcat.manager.password}"
+         path="/${project.identifier}"
+         war="file:${war.file}" />
+</target>         
+
+<target name="undeploy" description="Remove web application">
+    <undeploy url="${tomcat.manager.url}" 
+    	username="${tomcat.manager.username}" 
+    	password="${tomcat.manager.password}"
+        path="/${project.identifier}" />
+</target>
+
+<target name="start" description="Start Tomcat application">
+    <start url="${tomcat.manager.url}"
+             username="${tomcat.manager.username}"
+             password="${tomcat.manager.password}"
+             path="/${project.identifier}"/>
+</target>
+
+<target name="stop" description="Stop Tomcat application">
+    <stop url="${tomcat.manager.url}"
+             username="${tomcat.manager.username}"
+             password="${tomcat.manager.password}"
+             path="/${project.identifier}"/>
+</target>
+
+<!-- on vide la base de données MySQL -->
+<target name="erase_database">
+	<exec executable="mysql" input="${database.dir}/drop.sql">
+		<arg value="-u" />
+		<arg value="vol" />
+		<arg value="-p" />
+		<arg value="vav" />
+	</exec>
+</target>
+
+</project>
