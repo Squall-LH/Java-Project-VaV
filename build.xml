@@ -124,6 +124,7 @@ GENERATE DOCUMENTATION
 	<mkdir dir="${doc.dir}" />
 	<javadoc sourcepath="${src.dir}" destdir="${doc.dir}">
 		<doctitle> <![CDATA[<h1>${project.name}</h1>]]> </doctitle>
+		<classpath refid="compile.classpath" />
 	</javadoc>	
 </target>
 
