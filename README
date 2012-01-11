@@ -22,10 +22,13 @@ cp lib/javax.persitence.jar /opt/apache-tomcat-7.0.12/lib
 Configuration de tomcat :
 l'user tomcat dont le password est tomcat doit être dans les groupes : tomcat, manager-script
 
+Pour déployer l'application :
+ant deploy
+
 Au lancement de l'application, deux utilisateurs sont créés : 
 -user/user
 -admin/admin
--> En s'identifant en tant qu'admins, on peut ensuite remplir la BDD avec des données fictives
+-> En s'identifant en tant qu'admin, on peut ensuite remplir la BDD avec des données fictives
 
 Notes:
 EclipseLink
