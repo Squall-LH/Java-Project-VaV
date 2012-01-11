@@ -59,8 +59,11 @@ public class Controller extends HttpServlet {
 			
 		}
 		else if(action.equals("fill_database")) {
-			Fill f = new Fill();
-			f.fill_database();
+			try {
+				Fill f = new Fill();
+				f.fill_database();
+			}
+			catch (Exception e) {notice = new String("La BDD est déjà remplie des données fictives."); session.setAttribute("notice", notice);}
 			
 			AirportDAO aDAO = new AirportDAO();
 			ArrayList<Airport> lA = new ArrayList<Airport>(aDAO.retrieveAll());
