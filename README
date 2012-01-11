@@ -11,10 +11,13 @@ Quelques liens :
 -http://wiki.eclipse.org/EclipseLink/Examples/JPA
 Notes d'install:
 -http://wiki.eclipse.org/EclipseLink/Installing_and_Configuring_EclipseLink
--Copier javax.persitence.jar dans tomcat/lib
 
 Compatibilité : Fonctionne avec Eclipse Indigo, Tomcat7 et EclipseLink 2.3
-Jar nécessaire à la compilation : eclipselink.jar  eclipselink-jpa-modelgen_2.3.2.v20111125-r10461.jar  javax.persistence_1.0.0.jar  javax.persistence_2.0.3.v201010191057.jar  junit-4.10.jar
+-Copier lib/javax.persitence.jar dans tomcat/lib
+-copier ces fichiers dans $ANT_HOME, vaut chez moi /usr/share/java/apache-ant
+cp /opt/apache-tomcat-7.0.21/lib/tomcat-coyote.jar $ANT_HOME/lib/
+cp /opt/apache-tomcat-7.0.21/lib/tomcat-util.jar $ANT_HOME/lib/
+cp /opt/apache-tomcat-7.0.21/bin/tomcat-juli.jar $ANT_HOME/lib/
 
 Au lancement de l'application, deux utilisateurs sont créés : 
 -user/user
