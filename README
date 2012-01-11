@@ -4,7 +4,7 @@ nom de la base : vav
 user de base pour mysql : vol
 mdp de base pour mysql : vent
 
-EclipseType
+EclipseLink
 Quelques liens : 
 -http://www.jmdoudoux.fr/java/dej/chap-jpa.htm
 -http://www.vogella.de/articles/JavaPersistenceAPI/article.html
@@ -13,7 +13,8 @@ Notes d'install:
 -http://wiki.eclipse.org/EclipseLink/Installing_and_Configuring_EclipseLink
 -Copier javax.persitence.jar dans tomcat/lib
 
-Compatibilité : Fonctionne avec Eclipse Indigo et Tomcat7.
+Compatibilité : Fonctionne avec Eclipse Indigo, Tomcat7 et EclipseLink 2.3
+Jar nécessaire à la compilation : eclipselink.jar  eclipselink-jpa-modelgen_2.3.2.v20111125-r10461.jar  javax.persistence_1.0.0.jar  javax.persistence_2.0.3.v201010191057.jar  junit-4.10.jar
 
 Au lancement de l'application, deux utilisateurs sont créés : 
 -user/user
