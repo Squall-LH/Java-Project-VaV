@@ -13,7 +13,7 @@ Notes d'install:
 -http://wiki.eclipse.org/EclipseLink/Installing_and_Configuring_EclipseLink
 -Copier javax.persitence.jar dans tomcat/lib
 
-Fonctionne pour le moment uniquement avec Eclipse Indigo
+Compatibilité : Fonctionne avec Eclipse Indigo et Tomcat7.
 
 Au lancement de l'application, deux utilisateurs sont créés : 
 -user/user
