@@ -22,8 +22,6 @@ public class User implements Serializable{
 
 	private String pass;
 
-	private int flights;
-
 	private int level;
 	
 	public final static int VISITOR = 0;
@@ -34,12 +32,11 @@ public class User implements Serializable{
 		level = VISITOR;
 	}
 	
-	public User(String last_name, String first_name, String login, String pass, int flights, int level) {
+	public User(String last_name, String first_name, String login, String pass, int level) {
 		this.last_name = last_name;
 		this.first_name = first_name;
 		this.login = login;
 		this.pass = pass;
-		this.flights = flights;
 		this.level = level;
 	}
 	
@@ -48,16 +45,14 @@ public class User implements Serializable{
 		this.first_name = u.first_name;
 		this.login = u.login;
 		this.pass = u.pass;
-		this.flights = u.flights;
 		this.level = u.level;
 	}
 
-	public void set(String last_name, String first_name, String login, String pass, int flights, int level) {
+	public void set(String last_name, String first_name, String login, String pass, int level) {
 		this.last_name = last_name;
 		this.first_name = first_name;
 		this.login = login;
 		this.pass = pass;
-		this.flights = flights;
 		this.level = level;
 	}
 
@@ -99,14 +94,6 @@ public class User implements Serializable{
 
 	public void setPass(String pass) {
 		this.pass = pass;
-	}
-
-	public int getFlights() {
-		return flights;
-	}
-
-	public void setFlights(int flights) {
-		this.flights = flights;
 	}
 
 	public int getLevel() {

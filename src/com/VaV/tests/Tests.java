@@ -39,8 +39,8 @@ public class Tests {
 		UserDAO uDAO = new UserDAO();
 		User user = new User();
 		User admin = new User();
-		user.set("Nom d'user", "Prénom d'user", "user", "user", 0, User.USER);
-		admin.set("Nom d'admin", "Prénom d'admin", "admin", "admin", 0, User.ADMIN);
+		user.set("Nom d'user", "Prénom d'user", "user", "user", User.USER);
+		admin.set("Nom d'admin", "Prénom d'admin", "admin", "admin", User.ADMIN);
 		user = uDAO.find(user);
 		admin = uDAO.find(admin);
 

@@ -18,16 +18,16 @@ import com.VaV.persistence.UserDAO;
 public class Fill {
 	public void fill_database() {
 		UserDAO uDAO = new UserDAO();
-		User user = new User("More", "John", "john", "more", 0, User.USER);
-		User user2 = new User("Arc", "Éric", "ah", "bon", 0, User.USER);
-		User user3 = new User("Black", "White", "Black", "White", 0, User.USER);
-		User user4 = new User("Noir", "Blanc", "noir", "blanc", 0, User.USER);
-		User user5 = new User("Le Rouge", "Al", "rouge", "la", 0, User.USER);
-		User user6 = new User("Twig", "Henri", "twig", "faepfia", 0, User.USER);
-		User user7 = new User("Pierre", "Paul", "PierrePaul", "faefpojeafpo", 0, User.USER);
-		User user8 = new User("Alfred", "Jean", "jeanalfred", "aefpeaf", 0, User.USER);
-		User user9 = new User("Jack", "Hi", "JackHi", "eafpoja", 0, User.USER);
-		User user10 = new User("Mizuno", "Taichi", "Tai", "azerty", 0, User.USER);
+		User user = new User("More", "John", "john", "more", User.USER);
+		User user2 = new User("Arc", "Éric", "ah", "bon", User.USER);
+		User user3 = new User("Black", "White", "Black", "White", User.USER);
+		User user4 = new User("Noir", "Blanc", "noir", "blanc", User.USER);
+		User user5 = new User("Le Rouge", "Al", "rouge", "la", User.USER);
+		User user6 = new User("Twig", "Henri", "twig", "faepfia", User.USER);
+		User user7 = new User("Pierre", "Paul", "PierrePaul", "faefpojeafpo", User.USER);
+		User user8 = new User("Alfred", "Jean", "jeanalfred", "aefpeaf", User.USER);
+		User user9 = new User("Jack", "Hi", "JackHi", "eafpoja", User.USER);
+		User user10 = new User("Mizuno", "Taichi", "Tai", "azerty", User.USER);
 		
 		uDAO.create(user);
 		uDAO.create(user2);
@@ -143,9 +143,9 @@ public class Fill {
 		User user = new User();
 		UserDAO userDAO = new UserDAO();
 		
-		user.set("Nom d'user", "Prénom d'user", "user", "user", 0, User.USER);
+		user.set("Nom d'user", "Prénom d'user", "user", "user", User.USER);
 		userDAO.create(user);
-		user.set("Nom d'admin", "Prénom d'admin", "admin", "admin", 0, User.ADMIN);
+		user.set("Nom d'admin", "Prénom d'admin", "admin", "admin", User.ADMIN);
 		userDAO.create(user);
 		
 		AirportDAO airportDAO = new AirportDAO();
