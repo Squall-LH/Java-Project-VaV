@@ -15,15 +15,15 @@
        </ul>
 
 <h3>Réservation à venir</h3>
-<p>
 	    <% 
 		String notice = (String)session.getAttribute("notice");
-   		if(notice != null) {
+   		if(notice != null && !notice.equalsIgnoreCase("")) {
+   			out.println("<p>");
    			out.println("<span id=\"notice\">" + session.getAttribute("notice") + "</span>" + "<br />");
    	   		session.setAttribute("notice", "");
+   	   		out.println("</p>");
    		}
    		%>
-</p>
 
 <form method="post" action="controller?action=remove">
    

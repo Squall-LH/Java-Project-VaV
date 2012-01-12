@@ -1,13 +1,14 @@
 body {
 	font-size: 14px;
-	background: #ededed;
+	background: #e4e4f4;
 }
 
 #document {
 	width: 900px;
 	margin: 0 auto;
-	border-radius: 5px;
-	background: white;
+	margin-top: 20px;
+	border-radius: 20px;
+	background: #000049;
 	padding: 10px;
 }
 
@@ -16,11 +17,13 @@ body {
 }
 
 h1 {
-	color: #302c83;
+	color: #000049;
+	text-align: center;
 }
 
 h2 {
-	color: #832c2c;
+	color: #302c83;
+	text-align: center;
 }
 
 h3 {
@@ -32,19 +35,26 @@ section li {
 }
 
 header {
+	background: url('banner.png');
 	background-color: #7699d9;
 	padding: 5px;
 	margin: 5px;
+	border-radius: 15px 15px 0px 0px;
 }
 
 header li {
-	display: inline;
+	float: left;
 	padding: 10px;
+	margin: -20px 35px 0px -45px;
 }
 
 header li a {
 	color: white;
 	font-weight: bold;
+	background-color: #000049;
+	padding: 10px;
+	border-radius: 10px;
+	text-decoration: none;
 }
 
 header li a:hover {
@@ -53,14 +63,25 @@ header li a:hover {
 }
 
 section {
-	background-color: #edadad;
+	background-color: #c4c4f8;
 	padding: 5px;
-	margin: 5px;
+	margin: 15px 5px 5px 5px;
+	border-radius: 0px 0px 15px 15px;
+}
+
+#form_index
+{
+	margin-left: 30%;
 }
 
 #form_index p label {
 	width: 110px;
 	float: left;
+}
+
+#form_index
+{
+	margin-left: 30%;
 }
 
 #form_login p label {
@@ -74,4 +95,15 @@ ul {
 
 footer {
 	text-align: center;
+	
+}
+
+footer a
+{
+	color: white;
+}
+
+footer a:hover
+{
+	color: yellow;
 }
