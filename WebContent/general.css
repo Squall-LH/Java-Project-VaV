@@ -17,17 +17,19 @@ body {
 }
 
 h1 {
+	padding-top: 15px;
+	color: #000049;
+	text-align: center;
+	height: 45px;
+}
+
+h2 {
 	color: #000049;
 	text-align: center;
 }
 
-h2 {
-	color: #302c83;
-	text-align: center;
-}
-
 h3 {
-	color: #bd1f1f;
+	color: #302c83;
 }
 
 section li {
@@ -35,11 +37,10 @@ section li {
 }
 
 header {
-	background: url('banner.png');
+	background: url('banner.png') no-repeat;
 	background-color: #7699d9;
-	padding: 5px;
-	margin: 5px;
 	border-radius: 15px 15px 0px 0px;
+	margin: -15px 5px 0px 5px;
 }
 
 header li {
@@ -62,11 +63,24 @@ header li a:hover {
 	font-weight: bold;
 }
 
+header p
+{
+	background: #000049;
+	color: white;
+	padding-top: 5px;
+	text-align: right;
+	margin-bottom: -10px;
+}
+
 section {
 	background-color: #c4c4f8;
 	padding: 5px;
 	margin: 15px 5px 5px 5px;
 	border-radius: 0px 0px 15px 15px;
+}
+
+section li {
+	color: black;
 }
 
 #form_index
