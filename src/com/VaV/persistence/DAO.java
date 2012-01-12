@@ -7,7 +7,6 @@ import javax.persistence.Persistence;
 import org.eclipse.persistence.jpa.JpaEntityManager;
 import org.eclipse.persistence.queries.ReadAllQuery;
 import org.eclipse.persistence.queries.ReadObjectQuery;
-import org.eclipse.persistence.queries.SQLCall;
 
 public abstract class DAO<T> {
 
@@ -64,11 +63,4 @@ public abstract class DAO<T> {
 		
 		return result;
 	}
-	
-	public void erase_database() {
-		JpaEntityManager jpa = (JpaEntityManager) em.getDelegate();
-		jpa.getServerSession().acquireClientSession().executeNonSelectingCall(new SQLCall("SELECT * FROM EMPLOYEE WHERE DEPT_ID =44"));
-	}
-	
-	
 }

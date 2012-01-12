@@ -23,6 +23,7 @@ Configuration de tomcat :
 l'user tomcat dont le password est tomcat doit être dans les groupes : tomcat, manager-script
 
 Pour déployer l'application :
+lancer le serveur tomcat puis :
 ant deploy
 
 Au lancement de l'application, deux utilisateurs sont créés : 
