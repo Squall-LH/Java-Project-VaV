@@ -41,12 +41,24 @@ header {
 	background-color: #7699d9;
 	border-radius: 15px 15px 0px 0px;
 	margin: -15px 5px 0px 5px;
+	padding-bottom: 5px;
 }
 
 header li {
 	float: left;
 	padding: 10px;
 	margin: -20px 35px 0px -45px;
+}
+
+header p
+{
+	background: #000049;
+	color: #797979;
+	text-align: right;
+	float: right;
+	padding: 2px 2px 2px 8px;
+	border-radius: 0px 0px 0px 10px;
+	margin-top: -10px;
 }
 
 header li a {
@@ -56,20 +68,12 @@ header li a {
 	padding: 10px;
 	border-radius: 10px;
 	text-decoration: none;
+	border-top: 1px solid black;
 }
 
 header li a:hover {
 	color: yellow;
 	font-weight: bold;
-}
-
-header p
-{
-	background: #000049;
-	color: white;
-	padding-top: 5px;
-	text-align: right;
-	margin-bottom: -10px;
 }
 
 section {
@@ -93,13 +97,13 @@ section li {
 	float: left;
 }
 
-#form_index
+#form_login
 {
 	margin-left: 30%;
 }
 
 #form_login p label {
-	width: 180px;
+	width: 110px;
 	float: left;
 }
 
