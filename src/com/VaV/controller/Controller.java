@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
 /**
  * Servlet implementation class AirportController
  */
@@ -63,7 +62,7 @@ public class Controller extends HttpServlet {
 				Fill f = new Fill();
 				f.fill_database();
 			}
-			catch (Exception e) {notice = new String("La BDD est déjà remplie des données fictives."); session.setAttribute("notice", notice);}
+			catch (Exception e) {notice = new String("La BDD est déjà remplie des données fictives."); }
 			
 			/* We update the airports' name list */
 			AirportDAO aDAO = new AirportDAO();
@@ -73,6 +72,9 @@ public class Controller extends HttpServlet {
 				lAS.add(a.getName());
 			}
 			
+			if(notice == null)
+				notice = new String("La BDD est désormais remplie des données fictives.");
+			session.setAttribute("notice", notice);
 			request.getServletContext().setAttribute("airport_list", lAS);
 		}
 		else if(action.equals("login")) {
@@ -307,6 +309,29 @@ public class Controller extends HttpServlet {
 			session.setAttribute("date1", format.format(d1));
 			session.setAttribute("date2", format.format(d2));
 			disp = request.getRequestDispatcher("view_flight.jsp");
+		}
+		else if(action.equalsIgnoreCase("subscribe")) {
+			String last_name = request.getParameter("last_name");
+			String first_name = request.getParameter("first_name");
+			String login = request.getParameter("login");
+			String pass = request.getParameter("pass");
+			
+			if(last_name.equals("") || first_name.equals("") || login.equals("") || pass.equals("")) {
+				notice = new String("Vous devez remplir tous les chammps.");
+				session.setAttribute("notice", notice);
+				Redirect_URL = response.encodeURL("subscribe.jsp");
+			} else {
+				UserDAO uDAO = new UserDAO();
+				User user = new User(last_name, first_name, login, pass, User.USER);
+				try {
+					uDAO.create(user);
+				}catch (Exception e) {
+					notice = new String("Identifiant déjà pris. Choisisez en un autre.");
+					session.setAttribute("notice", notice);
+					Redirect_URL = response.encodeURL("subscribe.jsp");
+				}
+				Redirect_URL = response.encodeURL("index.jsp");
+			}
 		}
 		
 		if(Redirect_URL != null) {

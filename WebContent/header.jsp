@@ -34,6 +34,7 @@
 	}
 	else {
 		out.print("<li><a href=\"login.jsp\">S'identifier</a></li>");
+		out.print("<li><a href=\"subscribe.jsp\">S'inscrire</a></li>");
 	}
 
 	out.println("</ul><p>");
