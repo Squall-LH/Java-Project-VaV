@@ -30,6 +30,7 @@ h2 {
 
 h3 {
 	color: #302c83;
+	text-align: center;
 }
 
 section li {
@@ -46,7 +47,7 @@ header {
 
 header li {
 	float: left;
-	padding: 10px;
+	padding: 10px 5px 0px 10px;
 	margin: -20px 35px 0px -45px;
 }
 
@@ -56,9 +57,8 @@ header p
 	color: #797979;
 	text-align: right;
 	float: right;
-	padding: 2px 2px 2px 8px;
+	padding: 0px 2px 2px 8px;
 	border-radius: 0px 0px 0px 10px;
-	margin-top: -10px;
 }
 
 header li a {
@@ -78,7 +78,7 @@ header li a:hover {
 
 section {
 	background-color: #c4c4f8;
-	padding: 5px;
+	padding: 20px;
 	margin: 15px 5px 5px 5px;
 	border-radius: 0px 0px 15px 15px;
 }
@@ -89,21 +89,19 @@ section li {
 
 #form_index
 {
-	margin-left: 30%;
+	margin-left: 33%;
 }
 
 #form_index p label {
-	width: 110px;
 	float: left;
 }
 
 #form_login
 {
-	margin-left: 30%;
+	margin-left: 33%;
 }
 
 #form_login p label {
-	width: 110px;
 	float: left;
 }
 
