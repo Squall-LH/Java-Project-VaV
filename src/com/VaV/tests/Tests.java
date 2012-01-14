@@ -28,12 +28,10 @@ public class Tests {
 	
 	@Test
 	public void checkFill_basics() {
-		
-		
 		AirportDAO aDAO = new AirportDAO();
 		ArrayList<Airport> result = new ArrayList<Airport>(aDAO.retrieveAll());
 		
-		// On devrait avoir deux aéroports dans la BDD
+		// We should have two airports in the DB
 		assertTrue(result.size() == 2);
 		
 		UserDAO uDAO = new UserDAO();
@@ -44,7 +42,7 @@ public class Tests {
 		user = uDAO.find(user);
 		admin = uDAO.find(admin);
 
-		// On devrait avoir ces deux Users de base
+		// We should have these two user in the DB
 		assertTrue(user != null);
 		assertTrue(admin != null);
 	}
@@ -56,10 +54,12 @@ public class Tests {
 		ArrayList<Reservation> rL = new ArrayList<Reservation>(rDAO.retrieveAll());
 		ArrayList<Flight> fL = new ArrayList<Flight>(fDAO.retrieveAll());
 		
+		/* We check that the reservation is between two different flights */
 		for(Reservation current : rL) {
 			assertTrue(current.getFlight_outbound() != current.getFlight_return());
 		}
 		
+		/* We check that the flight is between two different airports */
 		for(Flight current : fL) {
 			assertTrue(current.getAirport_depart() != current.getAirport_arrival());
 		}

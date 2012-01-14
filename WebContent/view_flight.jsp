@@ -39,15 +39,11 @@
 		ArrayList<String> lFlightS = (ArrayList<String>)session.getAttribute("lFlightS");
 		
 		out.println("<p>");
-		
 		out.println("<ul>");
-		
 		for(String current : lFlightS) {
 			out.println("<li>" + current + "</li><br />");	
 		}
-		
 		out.println("</ul>");
-		
 		out.println("</p>");
 		
 		session.setAttribute("lFlightS", new ArrayList<String>());

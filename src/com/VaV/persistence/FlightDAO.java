@@ -1,6 +1,5 @@
 package com.VaV.persistence;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -10,7 +9,6 @@ import org.eclipse.persistence.expressions.ExpressionBuilder;
 import org.eclipse.persistence.jpa.JpaEntityManager;
 import org.eclipse.persistence.queries.ReadAllQuery;
 import com.VaV.model.Flight;
-import com.VaV.model.Reservation;
 
 public class FlightDAO extends DAO<Flight> {
 
@@ -18,6 +16,10 @@ public class FlightDAO extends DAO<Flight> {
 		
 	}
 	
+	/** Retrieve a list of Flight by example from the Flight in parameter 
+	 *  Hour/minute of the flight's date doesn't matter
+	 *  There must still be free seats in the Flight
+	 **/
 	public ArrayList<Flight> retrieveFlight(Flight f) {
 		Calendar calendar1 = Calendar.getInstance();
 		calendar1.setTime(f.getDate());
@@ -35,7 +37,6 @@ public class FlightDAO extends DAO<Flight> {
 		
 		em = factory.createEntityManager();
 		em.getTransaction().begin();
-		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd H:m:s");
 		
 		Query query = em.createQuery("select f FROM Flight f join f.airport_depart a1 join f.airport_arrival a2 where a1.name = ?1 and a2.name = ?2 and (f.date between ?3 and ?4)" +
 		"and f.plane.id IN (select p.id FROM Plane p where (SELECT COUNT(r.id) From Reservation r where r.flight_outbound = f or r.flight_return = f) < p.seats)");
@@ -45,14 +46,11 @@ public class FlightDAO extends DAO<Flight> {
 		query.setParameter(4, calendar2.getTime());
 		
 		ArrayList<Flight> results = new ArrayList<Flight>(query.getResultList());
-		
-		System.out.println("****************************"+ results);
-		
-		
 		return results;
 	}
 	
-	public List<Flight> retrieveFlight(Date d1, Date d2) {
+	/** Retrieve all flights between these two dates **/
+	public List<Flight> retrieveBetween(Date d1, Date d2) {
 		em = factory.createEntityManager();
 		em.getTransaction().begin();
 		
@@ -68,6 +66,7 @@ public class FlightDAO extends DAO<Flight> {
 		return results;
 	}
 	
+	/** Return the number of free seats matching with the list of flight in parameter **/
 	public ArrayList<Long> freeSeats(List<Flight> lF) {
 		em = factory.createEntityManager();
 		em.getTransaction().begin();

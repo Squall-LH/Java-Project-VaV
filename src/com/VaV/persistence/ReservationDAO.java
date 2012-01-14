@@ -9,8 +9,6 @@ import javax.persistence.Query;
 
 import org.eclipse.persistence.jpa.JpaEntityManager;
 import org.eclipse.persistence.queries.ReadAllQuery;
-
-import com.VaV.model.Airport;
 import com.VaV.model.Reservation;
 import com.VaV.model.User;
 
@@ -20,7 +18,8 @@ public class ReservationDAO extends DAO<Reservation> {
 		
 	}
 	
-	public ArrayList<Reservation> retriveInsider(Date d1, Date d2, User u) {
+	/** Retrieve all reservations from the user in parameter between these two dates **/
+	public ArrayList<Reservation> retrieveBetween(Date d1, Date d2, User u) {
 		ArrayList<Reservation> results = new ArrayList<Reservation>();
 		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd H:m:s");
@@ -34,10 +33,6 @@ public class ReservationDAO extends DAO<Reservation> {
 		query.setParameter(3, u);
 		
 		results = new ArrayList<Reservation>(query.getResultList());
-		
-		System.out.println("****************************"+ results);
-		
-		
 		return results;
 	}
 	

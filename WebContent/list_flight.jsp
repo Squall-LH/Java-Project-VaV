@@ -46,7 +46,7 @@
        else {
     	   out.println("Coût du billet :");
     	   Integer nb_reserve = (Integer)session.getAttribute("nb_reservation");
-           if(nb_reserve != 0 && nb_reserve % 5 == 0) {
+           if(nb_reserve != 0 && nb_reserve % 5 == 0) { /* Five reservations means one free ticket */
         	   out.println("Billet gratuit pour votre réservation n°" + nb_reserve + " !");
            }
            else {

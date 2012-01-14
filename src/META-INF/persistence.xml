@@ -10,8 +10,6 @@
         <class>com.VaV.model.Reservation</class>
         <class>com.VaV.model.User</class>
         <properties>
-            <!-- Default database login using Oracle for EclipseLink's internal connection pool,
-                 change this to access your own database. -->
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/vav" />
             <property name="javax.persistence.jdbc.user" value="vol" />

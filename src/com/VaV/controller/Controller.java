@@ -65,6 +65,7 @@ public class Controller extends HttpServlet {
 			}
 			catch (Exception e) {notice = new String("La BDD est déjà remplie des données fictives."); session.setAttribute("notice", notice);}
 			
+			/* We update the airports' name list */
 			AirportDAO aDAO = new AirportDAO();
 			ArrayList<Airport> lA = new ArrayList<Airport>(aDAO.retrieveAll());
 			ArrayList<String> lAS = new ArrayList<String>();
@@ -110,9 +111,8 @@ public class Controller extends HttpServlet {
 			ReservationDAO rDAO = new ReservationDAO();
 			Reservation r = new Reservation();
 			
-				
 			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-			SimpleDateFormat format_heure = new SimpleDateFormat("dd/MM/yyyy H:m");
+			SimpleDateFormat format_hour = new SimpleDateFormat("dd/MM/yyyy H:m");
 			Date date_outbound;
 			Date date_return;
 
@@ -136,12 +136,12 @@ public class Controller extends HttpServlet {
 					ArrayList<String> flight_depart = new ArrayList<String>();
 					ArrayList<String> flight_arrival = new ArrayList<String>();
 					for(Flight current : lf_depart) {
-						String tmp = new String(format_heure.format(current.getDate()));
+						String tmp = new String(format_hour.format(current.getDate()));
 						flight_depart.add(tmp);
 					}
 						
 						for(Flight current : lf_arrival) {
-							String tmp = new String(format_heure.format(current.getDate()));
+							String tmp = new String(format_hour.format(current.getDate()));
 							flight_arrival.add(tmp);
 						}
 						
@@ -150,9 +150,7 @@ public class Controller extends HttpServlet {
 						session.setAttribute("lf_depart", lf_depart);
 						session.setAttribute("lf_arrival", lf_arrival);
 						
-						/* Si l'user est identifié, on récupère le nombre de réservation à son actif affin de savoir si on lui
-						 * offre un billet gratuit ou pas
-						 */
+						/* If the user is identified we retrieve his number of reservations to known if he will get a free ticket or not */
 						UserDAO uDAO = new UserDAO();
 						User u = new User((User)session.getAttribute("user"));
 						Integer nb_reservation = 0;
@@ -193,15 +191,15 @@ public class Controller extends HttpServlet {
 				depart.setId(Integer.parseInt(request.getParameter("depart")));
 				arrival.setId(Integer.parseInt(request.getParameter("arrival")));
 				
-				/* On récupère la date d'aujourd'hui */
+				/* We get today's time */
 				Date date = Calendar.getInstance().getTime();
 				
 				depart = fDAO.find(depart);
 				arrival = fDAO.find(arrival);
 				
-				/* On vérifie qu'il n'y a pas de chevauchement de date de vol -Fonctionne à priori, mais à tester d'avantage- */
+				/* We verify that there is no overlap of flight date */
 				ArrayList<Reservation> results = new ArrayList<Reservation>();
-				results = rDAO.retriveInsider(depart.getDate(), arrival.getDate(), u);
+				results = rDAO.retrieveBetween(depart.getDate(), arrival.getDate(), u);
 				if(results == null || results.size() > 0) {
 					notice = new String("Réservation impossible du fait de chevauchement avec des réservations précédentes");
 					session.setAttribute("notice", notice);
@@ -234,7 +232,8 @@ public class Controller extends HttpServlet {
 						"<br /> Date Aller : " + format.format(current.getFlight_outbound().getDate()) + "<br /> Date Retour : " 
 						+ format.format(current.getFlight_return().getDate())
 						);
-				/* On compare la date du vol de retour à la date d'aujourd'hui pour savoir s'il est encore possible d'annuler au moins le vol de retour ou pas */
+				/* We separate past and future reservation 
+				 * If the return date is later than today, it is possible to cancel the reservation so we get the id too */
 				if(now.after(current.getFlight_return().getDate()) ) {
 					lRS_before.add(tmp);
 				}
@@ -251,9 +250,8 @@ public class Controller extends HttpServlet {
 		} else if(action.equals("remove")) {
 			ReservationDAO rDAO = new ReservationDAO();
 			
-			/* Donne la listes des noms des paramètres passé en GET ou en POST. Toutes variables passées dont le nom est un nombre 
-			 * sera consédérer comme un id de réservation à supprimer. Dangereux au possible !
-			 * */
+			/* We get the parameter names and try to parse them as Integer. If it's working then we consider them as reservation's id
+			 * to be removed */
 			Enumeration<String> p = request.getParameterNames();
 			
 
@@ -271,6 +269,7 @@ public class Controller extends HttpServlet {
 			session.setAttribute("notice", notice);
 			Redirect_URL = response.encodeURL("controller?action=list_reservation");
 		} else if(action.equals("view_flight")) {
+			/* Allow admin to see all flights between and their free seats two dates */
 			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 			SimpleDateFormat format_2 = new SimpleDateFormat("yyyy-MM-dd H:m:s");
 			Date d1 = null;
@@ -284,7 +283,7 @@ public class Controller extends HttpServlet {
 			}
 			
 			FlightDAO fDAO = new FlightDAO();
-			ArrayList<Flight> lF = new ArrayList<Flight>(fDAO.retrieveFlight(d1, d2));
+			ArrayList<Flight> lF = new ArrayList<Flight>(fDAO.retrieveBetween(d1, d2));
 			ArrayList<Long> freeSeats = new ArrayList<Long>(fDAO.freeSeats(lF));
 			
 			if(lF.size() > 0) {
