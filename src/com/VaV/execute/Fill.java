@@ -21,7 +21,7 @@ public class Fill {
 		User user = new User("More", "John", "john", "more", User.USER);
 		User user2 = new User("Arc", "Éric", "ah", "bon", User.USER);
 		User user3 = new User("Black", "White", "Black", "White", User.USER);
-		User user4 = new User("Plus", "Jean", "Plus", "jean", User.USER);
+		User user4 = new User("Plus", "Jean", "jean", "plus", User.USER);
 		User user5 = new User("Le Rouge", "Al", "rouge", "la", User.USER);
 		User user6 = new User("Twig", "Henri", "twig", "faepfia", User.USER);
 		User user7 = new User("Pierre", "Paul", "PierrePaul", "faefpojeafpo", User.USER);
@@ -105,7 +105,7 @@ public class Fill {
 		c.set(2006, Calendar.JANUARY, 5, 9, 30);
 		f3.set(airport1, airport2, plane3, c.getTime());
 		fDAO.create(f3);
-		c.set(2012, Calendar.MARCH, 5, 9, 30);
+		c.set(2012, Calendar.MARCH, 5, 15, 30);
 		f4.set(airport2, airport1, plane10, c.getTime());
 		fDAO.create(f4);
 		c.set(2012, Calendar.JANUARY, 5, 9, 30);
@@ -122,6 +122,8 @@ public class Fill {
 		f9.set(airport1, airport2, plane8, c.getTime()); fDAO.create(f9);
 		c.set(2012, Calendar.JULY, 5, 9, 30);
 		f10.set(airport2, airport1, plane9, c.getTime()); fDAO.create(f10);
+		c.set(2012, Calendar.FEBRUARY, 5, 20, 00);
+		f5.set(airport1, airport2, plane8, c.getTime()); fDAO.create(f5);
 		
 		Reservation r = new Reservation();
 		ReservationDAO rDAO = new ReservationDAO();

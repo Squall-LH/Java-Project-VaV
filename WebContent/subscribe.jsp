@@ -3,7 +3,7 @@
 <section>
 <h2>Inscription</h2>
 
-<form method="post" action="controller?action=subscribe" id="form_index">
+<form method="post" action="controller?action=subscribe" id="form_subscribe">
    <p>
    		<%
    		String notice = (String)session.getAttribute("notice");

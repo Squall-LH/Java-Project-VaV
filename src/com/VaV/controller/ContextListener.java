@@ -32,11 +32,11 @@ public class ContextListener implements ServletContextListener{
 			lAS.add(a.getName());
 		}
 		
-		/* We set some exemple of date */
+		/* We set some examples of date */
 		event.getServletContext().setAttribute("date1", "20/01/2001");
-		event.getServletContext().setAttribute("date2", "20/01/2010");
-		event.getServletContext().setAttribute("date_outbound", "25/12/2005");
-		event.getServletContext().setAttribute("date_return", "05/01/2006");
+		event.getServletContext().setAttribute("date2", "20/01/2012");
+		event.getServletContext().setAttribute("date_outbound", "05/02/2012");
+		event.getServletContext().setAttribute("date_return", "05/03/2012");
 		event.getServletContext().setAttribute("airport_list", lAS);
 	}
 }

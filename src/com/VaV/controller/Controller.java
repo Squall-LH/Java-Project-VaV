@@ -209,7 +209,7 @@ public class Controller extends HttpServlet {
 				else {
 					r.set(depart, arrival, u, date);
 					rDAO.create(r);
-					notice = new String("Réservation effectiée");
+					notice = new String("Réservation effectuée");
 					session.setAttribute("notice", notice);
 				}
 			}
@@ -330,6 +330,8 @@ public class Controller extends HttpServlet {
 					session.setAttribute("notice", notice);
 					Redirect_URL = response.encodeURL("subscribe.jsp");
 				}
+				notice = new String("Inscription réussie. Veuillez vous indentifier.");
+				session.setAttribute("notice", notice);
 				Redirect_URL = response.encodeURL("index.jsp");
 			}
 		}

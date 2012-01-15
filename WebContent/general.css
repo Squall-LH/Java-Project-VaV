@@ -93,6 +93,7 @@ section li {
 }
 
 #form_index p label {
+	width: 110px;
 	float: left;
 }
 
@@ -102,7 +103,21 @@ section li {
 }
 
 #form_login p label {
+	width: 170px;
 	float: left;
+}
+
+#form_subscribe p label {
+	width: 210px;
+	float: left;
+}
+
+#form_subscribe p label {
+	margin-left: 33%;		
+}
+
+#form_subscribe p input {
+	margin-left: 33%;		
 }
 
 ul {
