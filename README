@@ -19,6 +19,10 @@ cp /opt/apache-tomcat-7.0.21/bin/tomcat-juli.jar $ANT_HOME/lib/
 Copier les jar suivant dans le dossier lib du dossier d'installation de tomcat :
 cp lib/eclipselink.jar /opt/apache-tomcat-7.0.12/lib/
 cp lib/javax.persitence.jar /opt/apache-tomcat-7.0.12/lib
+
+Copier mysql-connector :
+cp lib/mysql-connector-java-5.1.17-bin.jar  /usr/lib/jvm/java-6-openjdk/jre/lib/ext/mysql-connector-java-5.1.17-bin.jar
+
 Configuration de tomcat :
 l'user tomcat dont le password est tomcat doit être dans les groupes : tomcat, manager-script
 
